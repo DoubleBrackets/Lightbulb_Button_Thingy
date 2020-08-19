@@ -4,4 +4,4 @@ Our project for Virtual Codeday August 2020! A game about lightbulbs and buttons
 
 Developers:
 
-JD, Star, HappySappy
+JD, Star, HappySappy, bruh
