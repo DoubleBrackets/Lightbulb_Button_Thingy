@@ -8,10 +8,21 @@ public class LightbulbMovementScript : MonoBehaviour
 
     public LineRenderer wire;
 
+    ConfigurableJoint joint;
+
+    Rigidbody rb;
+
+    private float swingForce = 75f;
+
+    private float cinchSpeed = 0.7f;
+
+    private float wireLimit = 10f;
+
     void Awake()
     {
         wire.positionCount = 2;
-
+        rb = gameObject.GetComponent<Rigidbody>();
+        joint = gameObject.GetComponent<ConfigurableJoint>();
     }
     private void FixedUpdate()
     {
@@ -19,13 +30,37 @@ public class LightbulbMovementScript : MonoBehaviour
         wire.SetPosition(1, target.transform.position);
 
         Vector3 diff = target.transform.position - transform.position;
-        float mag = diff.magnitude;
 
-        float zRotation = 90+Mathf.Acos(diff.x / mag)*Mathf.Rad2Deg;
-        float xRotation = 90-Mathf.Acos(diff.z / mag) * Mathf.Rad2Deg;
-        //float yRotation = Mathf.Atan2(diff.z, diff.x) * Mathf.Rad2Deg;
-        //float yRotation = 
-        transform.rotation = Quaternion.Euler(xRotation, 0, zRotation);
+        transform.LookAt(target.transform);
+
+        //transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, 0, transform.rotation.eulerAngles.z);
+
+    }
+
+    private void Update()
+    {
+        float horizontalInput = Input.mousePosition.x - Screen.width / 2f;
+        float verticalInput = Input.mousePosition.y - Screen.height / 2f;
+        rb.AddForce(new Vector3(-verticalInput, 0, horizontalInput).normalized * swingForce*Time.deltaTime);
+
+        if(Input.GetKey(KeyCode.E))
+        {
+            var lim = joint.linearLimit;
+            if (lim.limit > cinchSpeed * Time.deltaTime+0.2f)
+            {
+                lim.limit -= cinchSpeed * Time.deltaTime;
+                joint.linearLimit = lim;
+            }
+        }
+        else if(Input.GetKey(KeyCode.Q))
+        {
+            var lim = joint.linearLimit;
+            if (lim.limit <= wireLimit -  cinchSpeed * Time.deltaTime)
+            {
+                lim.limit += cinchSpeed * Time.deltaTime;
+                joint.linearLimit = lim;
+            }
+        }
 
     }
 }
