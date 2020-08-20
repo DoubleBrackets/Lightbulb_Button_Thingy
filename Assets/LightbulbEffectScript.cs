@@ -12,12 +12,11 @@ public class LightbulbEffectScript : MonoBehaviour
     public Material offMat;
     public Material onMat;
 
-    MeshRenderer ren;
+    public MeshRenderer ren;
 
     private void Awake()
     {
         lightbulbEffectScript = this;
-        ren = gameObject.GetComponentInChildren<MeshRenderer>();
         ren.material = offMat;
     }
 
