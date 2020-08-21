@@ -28,7 +28,10 @@ public class CharacterMovementScript : MonoBehaviour
 
     public bool canJump = true;
 
+    private float movementDisabledSitting = 0f;
+
     public bool isGrounded = false;
+    public bool isSitting = false;
 
     LayerMask groundedMask;
     // Start is called before the first frame update
@@ -47,21 +50,63 @@ public class CharacterMovementScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        isGrounded = IsGrounded();
+        if (movementDisabledSitting > 0)
+            movementDisabledSitting -= Time.deltaTime;
         if (jumpTimer > 0)
             jumpTimer -= Time.deltaTime;
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
-        isGrounded = IsGrounded();
-        if(Input.GetKeyDown(KeyCode.Space) && jumpTimer <= 0)
+        if(Input.GetKeyDown(KeyCode.Space) && jumpTimer <= 0 && movementDisabledSitting <= 0)
         {
             if(isGrounded && canJump)
             {
+                if(isSitting)
+                    StopSitting();
                 jumpTimer = 0.2f;
                 rb.velocity = new Vector3(rb.velocity.x, jumpVel, rb.velocity.z);
             }
         }
+        if(Input.GetKeyDown(KeyCode.LeftShift) && !isSitting && ObjectManipulateScript.objectManipulateScript.GetTargetObject() == null)
+        {
+            //Sit down
+            movementDisabledSitting = 0.5f;
+            isSitting = true;
+            anim.SetBool("IsSitting", true);
+            StartCoroutine(SitDown());
+        }
     }
 
+
+    private void StopSitting()
+    {
+        isSitting = false;
+        StartCoroutine(SitUp());
+        anim.SetBool("IsSitting", false);
+    }
+
+    IEnumerator SitUp()//Smoothens sitting up and readding feet collider
+    {
+        feetColl.enabled = true;
+        float height = feetColl.size.y;
+        for(int x = 0;x <= 15;x++)
+        {
+            feetColl.size = new Vector3(feetColl.size.x, x / 15f * height, feetColl.size.z);
+            yield return new WaitForFixedUpdate();
+        }
+    }
+
+    IEnumerator SitDown()//Smoothens sitting up and readding feet collider
+    {
+        float height = feetColl.size.y;
+        for (int x = 0; x <= 20; x++)
+        {
+            feetColl.size = new Vector3(feetColl.size.x,  (1- x / 20f) * height, feetColl.size.z);
+            yield return new WaitForFixedUpdate();
+        }
+        feetColl.enabled = false;
+        feetColl.size = new Vector3(feetColl.size.x, height, feetColl.size.z);
+    }
     private bool IsGrounded()
     {
         RaycastHit hit;
@@ -87,9 +132,11 @@ public class CharacterMovementScript : MonoBehaviour
 
         //headTarget.transform.position = transform.position + (Quaternion.Euler(Camera.main.transform.rotation.eulerAngles) * Vector3.forward).normalized * radius;
 
-        if (inputVector.magnitude > 0)
+        if (inputVector.magnitude > 0 && movementDisabledSitting <= 0)
         {
             anim.SetBool("IsMoving", true);
+            if (isSitting)
+                StopSitting();
             Vector3 dir = Quaternion.Euler(0, targetAngle, 0) * Vector3.forward;
 
             GameObject target = ObjectManipulateScript.objectManipulateScript.GetTargetObject();
