@@ -15,6 +15,7 @@ public class PlayerParticleScript : MonoBehaviour
         PlayerParticleManager.playerParticleManager.setParticleActiveEvent += SetActive;
         PlayerParticleManager.playerParticleManager.playParticleEvent += Play;
         PlayerParticleManager.playerParticleManager.stopParticleEvent += Stop;
+        PlayerParticleManager.playerParticleManager.setParticleBurstCountEvent += SetBurstCount;
     }
 
 
@@ -51,4 +52,14 @@ public class PlayerParticleScript : MonoBehaviour
         }
     }
 
+    void SetBurstCount(string _id, int val)
+    {
+        if (_id.CompareTo(particleId) == 0)
+        {
+            var em = pSys.emission;
+            ParticleSystem.Burst burst = em.GetBurst(0);
+            burst.count = val;
+            em.SetBurst(0,burst);
+        }
+    }
 }

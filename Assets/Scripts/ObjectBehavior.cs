@@ -18,12 +18,38 @@ public class ObjectBehavior : MonoBehaviour
     void Update()
     {
   
-      
+        ObjectManipulateScript a = player.GetComponent<ObjectManipulateScript>();
+        if (!a.GetObjectGrabbed())
+        {
+            if (grounded && !lightmass)
+            {
+                transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+
+            }
+            else
+            {
+                transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+
+            }
+        }
 
 
     }
 
- 
+    private void OnCollisionEnter(Collision collision)
+    {
+        grounded = true;
+        
+    }
+    private void OnCollisionStay(Collision collision)
+    {
+        grounded = true;
+
+    }
+    private void OnCollisionExit(Collision collision)
+    {
+        grounded = false;
+    }
 }
 
 

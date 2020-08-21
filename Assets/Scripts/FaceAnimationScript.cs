@@ -16,7 +16,7 @@ public class FaceAnimationScript : MonoBehaviour
 
     [Serializable]
     public struct FaceState
-    {   
+    {
         public string face;
         public string key;
     }
@@ -31,10 +31,17 @@ public class FaceAnimationScript : MonoBehaviour
 
     private void Update()
     {
-        SimpleMove a = gameObject.GetComponent<SimpleMove>();
-        if(CharacterMovementScript.characterMovementScript.isSitting)
+        if (PlayerButtonScript.playerButtonScript.isFlashing)
+        {
+            ChangeFaceState("flashing");
+        }
+        else if (CharacterMovementScript.characterMovementScript.isSitting || CharacterMovementScript.characterMovementScript.isChangingPosition)
         {
             ChangeFaceState("sitting");
+        }
+        else if (ObjectManipulateScript.objectManipulateScript.GetTargetObject() != null)
+        {
+            ChangeFaceState("moveobject");
         }
         else if (rb.velocity.y > 0 && !CharacterMovementScript.characterMovementScript.isGrounded)
         {
@@ -43,10 +50,6 @@ public class FaceAnimationScript : MonoBehaviour
         else if(rb.velocity.y < 0 && !CharacterMovementScript.characterMovementScript.isGrounded)
         {
             ChangeFaceState("fall");
-        }
-        else if(a.GetObject()!=null)
-        {
-            ChangeFaceState("moveobject");
         }
         else
         {
