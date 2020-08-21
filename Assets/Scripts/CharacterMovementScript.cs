@@ -7,7 +7,10 @@ public class CharacterMovementScript : MonoBehaviour
     public static CharacterMovementScript characterMovementScript;
 
     Rigidbody rb;
-    MeshCollider coll;
+    CapsuleCollider coll;
+    BoxCollider feetColl;
+
+    Animator anim;
 
     private float dynFric;
 
@@ -25,13 +28,17 @@ public class CharacterMovementScript : MonoBehaviour
 
     public bool canJump = true;
 
+    public bool isGrounded = false;
+
     LayerMask groundedMask;
     // Start is called before the first frame update
     void Awake()
     {
         characterMovementScript = this;
         rb = gameObject.GetComponent<Rigidbody>();
-        coll = gameObject.GetComponentInChildren<MeshCollider>();
+        coll = gameObject.GetComponentInChildren<CapsuleCollider>();
+        feetColl = gameObject.GetComponentInChildren<BoxCollider>();
+        anim = gameObject.GetComponentInChildren<Animator>();
         dynFric = coll.material.dynamicFriction;
         groundedMask = LayerMask.GetMask( "Terrain","MoveableObject");
         Cursor.lockState = CursorLockMode.Locked;
@@ -44,10 +51,10 @@ public class CharacterMovementScript : MonoBehaviour
             jumpTimer -= Time.deltaTime;
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
-
+        isGrounded = IsGrounded();
         if(Input.GetKeyDown(KeyCode.Space) && jumpTimer <= 0)
         {
-            if(IsGrounded() && canJump)
+            if(isGrounded && canJump)
             {
                 jumpTimer = 0.2f;
                 rb.velocity = new Vector3(rb.velocity.x, jumpVel, rb.velocity.z);
@@ -58,7 +65,13 @@ public class CharacterMovementScript : MonoBehaviour
     private bool IsGrounded()
     {
         RaycastHit hit;
-        Physics.BoxCast(transform.position, new Vector3(0.5f,0.4f,0.5f), Vector3.down, out hit,Quaternion.identity, 0.4f,groundedMask);
+        /*
+        Vector3 p1 = transform.position + coll.center - (coll.bounds.extents.y -coll.radius-0.1f) * Vector3.up;
+        Vector3 p2 = p1 + (2 * coll.bounds.extents.y-0.1f - coll.radius) * Vector3.up;
+        Physics.CapsuleCast(p1, p2,coll.radius, Vector3.down, out hit, 0.5f,groundedMask);
+        */
+        Vector3 size = new Vector3(feetColl.size.x, feetColl.size.y - 0.1f, feetColl.size.z);
+        Physics.BoxCast(feetColl.center + transform.position, size / 2f, Vector3.down,out hit,Quaternion.identity, 0.2f,groundedMask);
         if (hit.collider != null)
             return true;
         return false;
@@ -76,8 +89,7 @@ public class CharacterMovementScript : MonoBehaviour
 
         if (inputVector.magnitude > 0)
         {
-
-            //gameObject.GetComponent<Animator>().SetBool("IsMoving", true);
+            anim.SetBool("IsMoving", true);
             Vector3 dir = Quaternion.Euler(0, targetAngle, 0) * Vector3.forward;
 
             GameObject target = ObjectManipulateScript.objectManipulateScript.GetTargetObject();
@@ -102,13 +114,20 @@ public class CharacterMovementScript : MonoBehaviour
                 rb.velocity = new Vector3(dir.normalized.x * speed, rb.velocity.y, dir.normalized.z * speed);
             }
             coll.material.dynamicFriction = 0f;
+            feetColl.material.dynamicFriction = 0f;
+            coll.material.staticFriction = 0f;
+            feetColl.material.staticFriction = 0f;
         }
         else
         {
-            rb.velocity = new Vector3(rb.velocity.x * 0.85f,rb.velocity.y,rb.velocity.z * 0.85f);
-            if(IsGrounded())
+            rb.velocity = new Vector3(rb.velocity.x * 0.8f,rb.velocity.y,rb.velocity.z * 0.8f);
+            rb.angularVelocity = rb.angularVelocity * 0.8f;
+            if (isGrounded)
+            {
                 coll.material.dynamicFriction = dynFric;
-            //gameObject.GetComponent<Animator>().SetBool("IsMoving", false);
+                feetColl.material.dynamicFriction = dynFric;
+            }
+            anim.SetBool("IsMoving", false);
         }
     }
 }

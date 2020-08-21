@@ -7,6 +7,8 @@ public class ObjectManipulateScript : MonoBehaviour
     public static ObjectManipulateScript objectManipulateScript;
     GameObject grabbedObject;
 
+    CapsuleCollider coll;
+
     private float slowdownMultiplier = 0.5f;
 
     LayerMask raycastMask;
@@ -17,6 +19,7 @@ public class ObjectManipulateScript : MonoBehaviour
     {
         objectManipulateScript = this;
         raycastMask = LayerMask.GetMask("MoveableObject");
+        coll = gameObject.GetComponent<CapsuleCollider>();
     }
 
     private void Update()
@@ -29,10 +32,13 @@ public class ObjectManipulateScript : MonoBehaviour
             }
             else
             {
-                //Raycasts for object
+                //Raycasts for object 
+                Vector3 dir = Quaternion.Euler(transform.rotation.eulerAngles) * Vector3.forward;
                 RaycastHit hit;
-                Physics.Raycast(transform.position, Quaternion.Euler(transform.rotation.eulerAngles) * Vector3.forward, out hit, 1f, raycastMask);
-                if(hit.collider != null)
+                Vector3 p1 = transform.position + coll.center - (coll.bounds.extents.y - coll.radius - 0.1f) * Vector3.up;
+                Vector3 p2 = p1 + (2 * coll.bounds.extents.y - 0.1f - coll.radius) * Vector3.up;
+                Physics.CapsuleCast(p1, p2, coll.radius-0.1f, dir, out hit, 1f, raycastMask);
+                if (hit.collider != null)
                 {
                     GrabObject(hit.collider.gameObject,(transform.position - hit.collider.transform.position).magnitude+0.1f);
                 }
