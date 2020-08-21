@@ -292,6 +292,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e577c6694f9ad9f4890f547b25f91c4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ren: {fileID: 39426036}
+  lightbulbMat: {fileID: 2086091553}
+  onColor: {r: 1, g: 0.8156493, b: 0.28773582, a: 0}
+  bulbLight: {fileID: 1332056831}
+  isFlashing: 0
 --- !u!1 &364810765
 GameObject:
   m_ObjectHideFlags: 3
@@ -1025,7 +1030,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1546464031}
-  m_LocalRotation: {x: 0.1534181, y: -0.000000015124625, z: 0.0000000023481905, w: 0.9881614}
+  m_LocalRotation: {x: 0.15341808, y: 0.000000021108606, z: -0.0000000032772396, w: 0.9881614}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1461,6 +1466,12 @@ MonoBehaviour:
   lightmass: 0
   player: {fileID: 53418532}
   grounded: 0
+--- !u!23 &2086091553 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 9164534015136346000, guid: 9a577fccec42b594a8cf72eb95e9b1db,
+    type: 3}
+  m_PrefabInstance: {fileID: 3771235058232637950}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3771235058232637950
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1580,6 +1591,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Mesh
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2592538560986022701, guid: 9a577fccec42b594a8cf72eb95e9b1db,
+        type: 3}
+      propertyPath: m_Name
+      value: Bulb
       objectReference: {fileID: 0}
     - target: {fileID: 3771235058214216664, guid: 9a577fccec42b594a8cf72eb95e9b1db,
         type: 3}
