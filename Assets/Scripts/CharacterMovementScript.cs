@@ -29,6 +29,7 @@ public class CharacterMovementScript : MonoBehaviour
     public bool canJump = true;
 
     private float movementDisabledSitting = 0f;
+    private float feetCollHeight;
 
     public bool isGrounded = false;
     public bool isSitting = false;
@@ -42,6 +43,7 @@ public class CharacterMovementScript : MonoBehaviour
         coll = gameObject.GetComponentInChildren<CapsuleCollider>();
         feetColl = gameObject.GetComponentInChildren<BoxCollider>();
         anim = gameObject.GetComponentInChildren<Animator>();
+        feetCollHeight = feetColl.size.y;
         dynFric = coll.material.dynamicFriction;
         groundedMask = LayerMask.GetMask( "Terrain","MoveableObject");
         Cursor.lockState = CursorLockMode.Locked;
@@ -88,24 +90,21 @@ public class CharacterMovementScript : MonoBehaviour
     IEnumerator SitUp()//Smoothens sitting up and readding feet collider
     {
         feetColl.enabled = true;
-        float height = feetColl.size.y;
-        for(int x = 0;x <= 15;x++)
+        for (int x = 0;x <= 15;x++)
         {
-            feetColl.size = new Vector3(feetColl.size.x, x / 15f * height, feetColl.size.z);
+            feetColl.size = new Vector3(feetColl.size.x, x / 15f * feetCollHeight, feetColl.size.z);
             yield return new WaitForFixedUpdate();
         }
     }
 
-    IEnumerator SitDown()//Smoothens sitting up and readding feet collider
+    IEnumerator SitDown()
     {
-        float height = feetColl.size.y;
         for (int x = 0; x <= 20; x++)
         {
-            feetColl.size = new Vector3(feetColl.size.x,  (1- x / 20f) * height, feetColl.size.z);
+            feetColl.size = new Vector3(feetColl.size.x,  (1- x / 20f) * feetCollHeight, feetColl.size.z);
             yield return new WaitForFixedUpdate();
         }
         feetColl.enabled = false;
-        feetColl.size = new Vector3(feetColl.size.x, height, feetColl.size.z);
     }
     private bool IsGrounded()
     {
@@ -115,8 +114,18 @@ public class CharacterMovementScript : MonoBehaviour
         Vector3 p2 = p1 + (2 * coll.bounds.extents.y-0.1f - coll.radius) * Vector3.up;
         Physics.CapsuleCast(p1, p2,coll.radius, Vector3.down, out hit, 0.5f,groundedMask);
         */
-        Vector3 size = new Vector3(feetColl.size.x, feetColl.size.y - 0.1f, feetColl.size.z);
-        Physics.BoxCast(feetColl.center + transform.position, size / 2f, Vector3.down,out hit,Quaternion.identity, 0.2f,groundedMask);
+        Vector3 center = feetColl.center;
+        if(isSitting)
+        {
+            Vector3 p1 = transform.position + coll.center - (coll.bounds.extents.y - coll.radius - 0.1f) * Vector3.up;
+            Vector3 p2 = p1 + (2 * coll.bounds.extents.y - 0.1f - coll.radius) * Vector3.up;
+            Physics.CapsuleCast(p1, p2, coll.radius, Vector3.down, out hit, 0.2f, groundedMask);
+        }
+        else
+        {
+            Vector3 size = new Vector3(feetColl.size.x, feetColl.size.y - 0.1f, feetColl.size.z);
+            Physics.BoxCast(center + transform.position, size / 2f, Vector3.down, out hit, Quaternion.identity, 0.2f, groundedMask);
+        }
         if (hit.collider != null)
             return true;
         return false;

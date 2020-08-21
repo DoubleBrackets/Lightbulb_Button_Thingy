@@ -22,31 +22,33 @@ public class PlayerButtonScript : MonoBehaviour
     private float maxIntensity = 7f;
 
     public bool isFlashing = false;
+
     private void Awake()
     {
         playerButtonScript = this;
         rb = gameObject.GetComponentInParent<Rigidbody>();
         offColor = ren.material.color;
     }
-    private void OnTriggerEnter(Collider collision)
+    private void OnCollisionEnter(Collision collision)
     {
+        print("e");
         if (!CharacterMovementScript.characterMovementScript.isSitting)
             return;
         //Calculates hit speed
         Rigidbody collRb = collision.gameObject.GetComponent<Rigidbody>();
-        if(collRb != null)
+        float force = Mathf.Abs(collision.impulse.y / Time.fixedDeltaTime);
+        print(force);
+        if (collRb != null)
         {
-            float force = Mathf.Abs(collRb.velocity.y*collRb.mass - rb.velocity.y*rb.mass);
+            //float force = Mathf.Abs(collRb.velocity.y*collRb.mass - rb.velocity.y*rb.mass);
             ButtonPress(force);
         }
         else if(rb.velocity.y <= 0)
         {
-            float force = -rb.velocity.y;
-            print(force);
+            //float force = -rb.velocity.y;
             ButtonPress(force);
         }
     }
-
     private void ButtonPress(float force)
     {
         PlayerParticleManager.playerParticleManager.SetParticleBurstCount("LightbulbElectricity", (int)(force * 1.5f));
