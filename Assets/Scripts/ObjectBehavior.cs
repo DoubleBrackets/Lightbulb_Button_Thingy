@@ -42,7 +42,11 @@ public class ObjectBehavior : MonoBehaviour
         grounded = true;
         
     }
+    private void OnCollisionStay(Collision collision)
+    {
+        grounded = true;
 
+    }
     private void OnCollisionExit(Collision collision)
     {
         grounded = false;
