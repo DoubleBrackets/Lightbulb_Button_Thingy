@@ -16,7 +16,7 @@ public class FaceAnimationScript : MonoBehaviour
 
     [Serializable]
     public struct FaceState
-    {
+    {   
         public string face;
         public string key;
     }
@@ -31,6 +31,7 @@ public class FaceAnimationScript : MonoBehaviour
 
     private void Update()
     {
+        SimpleMove a = gameObject.GetComponent<SimpleMove>();
         if(CharacterMovementScript.characterMovementScript.isSitting)
         {
             ChangeFaceState("sitting");
@@ -43,7 +44,7 @@ public class FaceAnimationScript : MonoBehaviour
         {
             ChangeFaceState("fall");
         }
-        else if(ObjectManipulateScript.objectManipulateScript.GetTargetObject() != null)
+        else if(a.GetObject()!=null)
         {
             ChangeFaceState("moveobject");
         }
