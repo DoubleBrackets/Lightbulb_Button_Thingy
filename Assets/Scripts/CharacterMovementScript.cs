@@ -33,6 +33,7 @@ public class CharacterMovementScript : MonoBehaviour
 
     public bool isGrounded = false;
     public bool isSitting = false;
+    public bool isChangingPosition = false;
 
     LayerMask groundedMask;
     // Start is called before the first frame update
@@ -89,12 +90,14 @@ public class CharacterMovementScript : MonoBehaviour
 
     IEnumerator SitUp()//Smoothens sitting up and readding feet collider
     {
+        isChangingPosition = true;
         feetColl.enabled = true;
         for (int x = 0;x <= 15;x++)
         {
             feetColl.size = new Vector3(feetColl.size.x, x / 15f * feetCollHeight, feetColl.size.z);
             yield return new WaitForFixedUpdate();
         }
+        isChangingPosition = false;
     }
 
     IEnumerator SitDown()

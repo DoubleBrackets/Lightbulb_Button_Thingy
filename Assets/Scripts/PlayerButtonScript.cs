@@ -31,13 +31,12 @@ public class PlayerButtonScript : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        print("e");
-        if (!CharacterMovementScript.characterMovementScript.isSitting)
+        if (!CharacterMovementScript.characterMovementScript.isSitting || isFlashing)
             return;
         //Calculates hit speed
         Rigidbody collRb = collision.gameObject.GetComponent<Rigidbody>();
-        float force = Mathf.Abs(collision.impulse.y / Time.fixedDeltaTime);
-        print(force);
+        float force = Mathf.Abs(collision.impulse.y);
+        //print(force);
         if (collRb != null)
         {
             //float force = Mathf.Abs(collRb.velocity.y*collRb.mass - rb.velocity.y*rb.mass);
@@ -51,7 +50,7 @@ public class PlayerButtonScript : MonoBehaviour
     }
     private void ButtonPress(float force)
     {
-        PlayerParticleManager.playerParticleManager.SetParticleBurstCount("LightbulbElectricity", (int)(force * 1.5f));
+        PlayerParticleManager.playerParticleManager.SetParticleBurstCount("LightbulbElectricity", (int)(force));
         PlayerParticleManager.playerParticleManager.PlayParticle("LightbulbElectricity");
         StartCoroutine(StartLight(force));
     }

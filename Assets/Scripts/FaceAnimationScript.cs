@@ -35,7 +35,7 @@ public class FaceAnimationScript : MonoBehaviour
         {
             ChangeFaceState("flashing");
         }
-        else if (CharacterMovementScript.characterMovementScript.isSitting)
+        else if (CharacterMovementScript.characterMovementScript.isSitting || CharacterMovementScript.characterMovementScript.isChangingPosition)
         {
             ChangeFaceState("sitting");
         }
