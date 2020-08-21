@@ -21,7 +21,6 @@ public class ObjectBehavior : MonoBehaviour
         ObjectManipulateScript a = player.GetComponent<ObjectManipulateScript>();
         if (!a.GetObjectGrabbed())
         {
-            Debug.Log(a.GetObjectGrabbed());
             if (grounded && !lightmass)
             {
                 transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;

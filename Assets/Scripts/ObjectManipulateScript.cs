@@ -41,7 +41,7 @@ public class ObjectManipulateScript : MonoBehaviour
            
                 if (hit.collider != null)
                 {
-                    GrabObject(hit.collider.gameObject,(transform.position - hit.collider.transform.position).magnitude+0.1f);
+                    GrabObject(hit.collider.gameObject,(transform.position - hit.collider.transform.position).magnitude+0.2f);
                                     
                 }
             }

@@ -31,9 +31,17 @@ public class FaceAnimationScript : MonoBehaviour
 
     private void Update()
     {
-        if(CharacterMovementScript.characterMovementScript.isSitting)
+        if (PlayerButtonScript.playerButtonScript.isFlashing)
+        {
+            ChangeFaceState("flashing");
+        }
+        else if (CharacterMovementScript.characterMovementScript.isSitting)
         {
             ChangeFaceState("sitting");
+        }
+        else if (ObjectManipulateScript.objectManipulateScript.GetTargetObject() != null)
+        {
+            ChangeFaceState("moveobject");
         }
         else if (rb.velocity.y > 0 && !CharacterMovementScript.characterMovementScript.isGrounded)
         {
@@ -42,10 +50,6 @@ public class FaceAnimationScript : MonoBehaviour
         else if(rb.velocity.y < 0 && !CharacterMovementScript.characterMovementScript.isGrounded)
         {
             ChangeFaceState("fall");
-        }
-        else if(ObjectManipulateScript.objectManipulateScript.GetTargetObject() != null)
-        {
-            ChangeFaceState("moveobject");
         }
         else
         {

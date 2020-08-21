@@ -34,5 +34,13 @@ public class PlayerParticleManager : MonoBehaviour
             setParticleActiveEvent(_id, val);
         }
     }
+    public event Action<String, int> setParticleBurstCountEvent;
+    public void SetParticleBurstCount(string _id, int val)
+    {
+        if (setParticleBurstCountEvent != null)
+        {
+            setParticleBurstCountEvent(_id, val);
+        }
+    }
 
 }
