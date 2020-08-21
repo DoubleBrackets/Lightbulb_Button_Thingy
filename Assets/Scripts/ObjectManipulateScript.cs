@@ -38,9 +38,11 @@ public class ObjectManipulateScript : MonoBehaviour
                 Vector3 p1 = transform.position + coll.center - (coll.bounds.extents.y - coll.radius - 0.1f) * Vector3.up;
                 Vector3 p2 = p1 + (2 * coll.bounds.extents.y - 0.1f - coll.radius) * Vector3.up;
                 Physics.CapsuleCast(p1, p2, coll.radius-0.1f, dir, out hit, 1f, raycastMask);
+           
                 if (hit.collider != null)
                 {
                     GrabObject(hit.collider.gameObject,(transform.position - hit.collider.transform.position).magnitude+0.1f);
+                                    
                 }
             }
         }
@@ -58,6 +60,9 @@ public class ObjectManipulateScript : MonoBehaviour
         CharacterMovementScript.characterMovementScript.speed *= slowdownMultiplier;
     }
 
+    
+   
+
     private void ReleaseObject()
     {
         CharacterMovementScript.characterMovementScript.canJump = true;
@@ -70,6 +75,10 @@ public class ObjectManipulateScript : MonoBehaviour
         CharacterMovementScript.characterMovementScript.speed /= slowdownMultiplier;
     }
 
+    public bool GetObjectGrabbed()
+    {
+        return objectGrabbed; 
+    }
     private void CreateJoint(float dist)
     {
         ConfigurableJoint joint = grabbedObject.AddComponent<ConfigurableJoint>();
