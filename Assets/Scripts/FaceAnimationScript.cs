@@ -31,7 +31,11 @@ public class FaceAnimationScript : MonoBehaviour
 
     private void Update()
     {
-        if(rb.velocity.y > 0 && !CharacterMovementScript.characterMovementScript.isGrounded)
+        if(CharacterMovementScript.characterMovementScript.isSitting)
+        {
+            ChangeFaceState("sitting");
+        }
+        else if (rb.velocity.y > 0 && !CharacterMovementScript.characterMovementScript.isGrounded)
         {
             ChangeFaceState("jump");
         }

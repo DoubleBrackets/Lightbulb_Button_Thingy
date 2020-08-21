@@ -24,7 +24,7 @@ public class ObjectManipulateScript : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        if(Input.GetMouseButtonDown(0) && !CharacterMovementScript.characterMovementScript.isSitting)
         {
             if(objectGrabbed)
             {
@@ -53,7 +53,7 @@ public class ObjectManipulateScript : MonoBehaviour
         CharacterMovementScript.characterMovementScript.canJump = false;
         objectGrabbed = true;
         grabbedObject = obj;
-        obj.GetComponent<Rigidbody>().mass = 0.01f;
+        //obj.GetComponent<Rigidbody>().mass = 0.01f;
         obj.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
         CreateJoint(dist);
 
@@ -68,7 +68,7 @@ public class ObjectManipulateScript : MonoBehaviour
         CharacterMovementScript.characterMovementScript.canJump = true;
         ConfigurableJoint joint = grabbedObject.GetComponent<ConfigurableJoint>();
         Destroy(joint);
-        grabbedObject.GetComponent<Rigidbody>().mass = 1f;
+        //grabbedObject.GetComponent<Rigidbody>().mass = 1f;
         grabbedObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         grabbedObject = null;
         objectGrabbed = false;
