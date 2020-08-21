@@ -10,8 +10,10 @@ public class PlayerButtonScript : MonoBehaviour
 
     public MeshRenderer lightbulbMat;
 
-    private float emissionMinIntensity = -2;
-    private float emissionmaxIntensity = 2.5f;
+    private float emissionMinIntensity = 0.4f;
+    private float emissionmaxIntensity = 7f;
+
+    private Color lightbulbMatColor;
 
     public Color onColor;
     private Color offColor;
@@ -32,6 +34,7 @@ public class PlayerButtonScript : MonoBehaviour
     {
         playerButtonScript = this;
         rb = gameObject.GetComponentInParent<Rigidbody>();
+        lightbulbMatColor = lightbulbMat.material.GetColor("_EmissionColor");
         offColor = ren.material.color;
     }
     private void OnCollisionEnter(Collision collision)
@@ -69,20 +72,20 @@ public class PlayerButtonScript : MonoBehaviour
         ren.transform.localPosition = localPos;
         float ratio = Mathf.Min(1f, (force / winForce));
 
-        Color c = lightbulbMat.material.GetColor("_EmissionColor");
-        c *= 10;// emissionMinIntensity + ratio * (emissionmaxIntensity - emissionMinIntensity);
-        lightbulbMat.material.SetColor("_EmissionColor", c);
-
+        Color c = lightbulbMatColor;
 
         for (int x = 0; x <= 30; x++)
         {
+            float intensityValue = emissionMinIntensity + (1 - x / 30f) * ratio * (emissionmaxIntensity - emissionMinIntensity);
+
+            c *= intensityValue;
+            lightbulbMat.material.SetColor("_EmissionColor", c);
+            c = lightbulbMatColor;
             bulbLight.intensity = minIntensity + (1 - x / 30f) * ratio * (maxIntensity - minIntensity);
             yield return new WaitForFixedUpdate();
         }
-
-        c *= 0;// emissionMinIntensity + ratio * (emissionmaxIntensity - emissionMinIntensity);
+        c *= 0;
         lightbulbMat.material.SetColor("_EmissionColor", c);
-
         bulbLight.intensity = 0;
         isFlashing = false;
         ren.material.SetColor("_EmissionColor", offColor);
