@@ -31,12 +31,15 @@ public class FaceAnimationScript : MonoBehaviour
 
     private void Update()
     {
-        SimpleMove a = gameObject.GetComponent<SimpleMove>();
-        if (CharacterMovementScript.characterMovementScript.isSitting || CharacterMovementScript.characterMovementScript.isChangingPosition)
+        if (PlayerButtonScript.playerButtonScript.isFlashing)
+        {
+            ChangeFaceState("flashing");
+        }
+        else if (CharacterMovementScript.characterMovementScript.isSitting || CharacterMovementScript.characterMovementScript.isChangingPosition)
         {
             ChangeFaceState("sitting");
         }
-        else if (a.GetObject() != null)
+        else if (ObjectManipulateScript.objectManipulateScript.GetTargetObject() != null)
         {
             ChangeFaceState("moveobject");
         }
@@ -44,7 +47,7 @@ public class FaceAnimationScript : MonoBehaviour
         {
             ChangeFaceState("jump");
         }
-        else if(rb.velocity.y < 0 && !CharacterMovementScript.characterMovementScript.isGrounded)
+        else if (rb.velocity.y < 0 && !CharacterMovementScript.characterMovementScript.isGrounded)
         {
             ChangeFaceState("fall");
         }
