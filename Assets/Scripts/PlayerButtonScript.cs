@@ -30,11 +30,36 @@ public class PlayerButtonScript : MonoBehaviour
 
     private void Awake()
     {
-        
+        playerButtonScript = this;
+        rb = gameObject.GetComponentInParent<Rigidbody>();
+        offColor = ren.material.color;
     }
-
-    // Update is called once per frame
-    void Update()
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (!CharacterMovementScript.characterMovementScript.isSitting || isFlashing)
+            return;
+        //Calculates hit speed
+        Rigidbody collRb = collision.gameObject.GetComponent<Rigidbody>();
+        float force = Mathf.Abs(collision.impulse.y);
+        //print(force);
+        if (collRb != null)
+        {
+            //float force = Mathf.Abs(collRb.velocity.y*collRb.mass - rb.velocity.y*rb.mass);
+            ButtonPress(force);
+        }
+        else if(rb.velocity.y <= 0)
+        {
+            //float force = -rb.velocity.y;
+            ButtonPress(force);
+        }
+    }
+    private void ButtonPress(float force)
+    {
+        PlayerParticleManager.playerParticleManager.SetParticleBurstCount("LightbulbElectricity", (int)(force));
+        PlayerParticleManager.playerParticleManager.PlayParticle("LightbulbElectricity");
+        StartCoroutine(StartLight(force));
+    }
+    IEnumerator StartLight(float force)
     {
         isFlashing = true;
         ren.material.SetColor("_EmissionColor", onColor);
@@ -48,9 +73,10 @@ public class PlayerButtonScript : MonoBehaviour
         c *= 10;// emissionMinIntensity + ratio * (emissionmaxIntensity - emissionMinIntensity);
         lightbulbMat.material.SetColor("_EmissionColor", c);
 
-        for(int x = 0;x <= 30;x++)
+
+        for (int x = 0; x <= 30; x++)
         {
-            bulbLight.intensity = minIntensity + (1 - x / 30f) * ratio * (maxIntensity-minIntensity);
+            bulbLight.intensity = minIntensity + (1 - x / 30f) * ratio * (maxIntensity - minIntensity);
             yield return new WaitForFixedUpdate();
         }
 
