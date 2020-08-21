@@ -31,15 +31,12 @@ public class FaceAnimationScript : MonoBehaviour
 
     private void Update()
     {
-        if (PlayerButtonScript.playerButtonScript.isFlashing)
-        {
-            ChangeFaceState("flashing");
-        }
-        else if (CharacterMovementScript.characterMovementScript.isSitting || CharacterMovementScript.characterMovementScript.isChangingPosition)
+        SimpleMove a = gameObject.GetComponent<SimpleMove>();
+        if (CharacterMovementScript.characterMovementScript.isSitting || CharacterMovementScript.characterMovementScript.isChangingPosition)
         {
             ChangeFaceState("sitting");
         }
-        else if (ObjectManipulateScript.objectManipulateScript.GetTargetObject() != null)
+        else if (a.GetObject() != null)
         {
             ChangeFaceState("moveobject");
         }

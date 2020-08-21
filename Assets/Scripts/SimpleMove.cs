@@ -30,7 +30,7 @@ public class SimpleMove : MonoBehaviour
         }
         if (grabbed)
         {
-            Obj.transform.position = (transform.position - objdirection.normalized) * 1.25f;
+            Obj.transform.position = (transform.position - objdirection.normalized)*1.15f;
             Obj.transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             Collider[] a = Obj.GetComponents<Collider>();
             foreach (Collider c in a)
