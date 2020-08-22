@@ -32,7 +32,7 @@ public class UIScript : MonoBehaviour
         float currentRatio = 0;
         for(int x = 0;x < 15;x++)
         {
-            currentRatio = Mathf.Lerp(currentRatio, targetRatio,0.65f);
+            currentRatio = Mathf.Lerp(currentRatio, targetRatio,0.5f);
             ChangeBarToRatio(currentRatio);
             yield return new WaitForFixedUpdate();
         }
@@ -40,7 +40,7 @@ public class UIScript : MonoBehaviour
         yield return new WaitForSeconds(1f);
         for (int x = 0; x < 15; x++)
         {
-            currentRatio = Mathf.Lerp(currentRatio, 0, 0.65f);
+            currentRatio = Mathf.Lerp(currentRatio, 0, 0.5f);
             ChangeBarToRatio(currentRatio);
             yield return new WaitForFixedUpdate();
         }

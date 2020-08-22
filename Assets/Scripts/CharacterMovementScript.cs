@@ -139,7 +139,9 @@ public class CharacterMovementScript : MonoBehaviour
     {
         Vector3 inputVector = new Vector3(horizontalInput, 0, verticalInput).normalized;
 
-        float targetAngle = Camera.main.transform.rotation.eulerAngles.y - Mathf.Atan2(verticalInput, horizontalInput) * Mathf.Rad2Deg + 90f;
+        float inputAngle = Mathf.Atan2(verticalInput, horizontalInput) * Mathf.Rad2Deg;
+
+        float targetAngle = Camera.main.transform.rotation.eulerAngles.y - inputAngle + 90f;
 
 
         float radius = 10f;
@@ -153,6 +155,8 @@ public class CharacterMovementScript : MonoBehaviour
                 StopSitting();
             Vector3 dir = Quaternion.Euler(0, targetAngle, 0) * Vector3.forward;
 
+            if (SimpleMove.simpleMove.IsGrabbed() && inputAngle == -90f)
+                targetAngle += 180;
             gameObject.transform.rotation = Quaternion.Euler(0, Mathf.SmoothDampAngle(transform.rotation.eulerAngles.y, targetAngle, ref turnVel, rotationFactor), 0);
 
             float currentSpeed = new Vector3(rb.velocity.x, 0, rb.velocity.z).magnitude;

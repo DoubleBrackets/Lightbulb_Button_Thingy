@@ -13,8 +13,6 @@ public class SimpleMove : MonoBehaviour
     public Transform holder;
     private float cooldown;
     private float cooldowntime;
-
-    public bool isGrabbing = false;
     private void Awake()
     {
         simpleMove = this;
@@ -39,8 +37,10 @@ public class SimpleMove : MonoBehaviour
         RaycastHit hit;
         if (Input.GetMouseButtonDown(0) && !CharacterMovementScript.characterMovementScript.isSitting)
         {
-            if (Physics.Raycast(transform.position, transform.forward, out hit, 2, ground))
+            if (Physics.BoxCast(transform.position, new Vector3(0.25f,1,0.25f),transform.forward, out hit, Quaternion.identity,2, ground))
             {
+                if (hit.collider.gameObject.GetComponent<ObjectBehavior>() == null)
+                    return;
                 Obj = hit.collider.gameObject;
                 objdirection = transform.position - hit.point;
                 grabbed = true;
