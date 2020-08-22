@@ -43,4 +43,13 @@ public class PlayerParticleManager : MonoBehaviour
         }
     }
 
+    public event Action<String, int> setParticleEmissionEvent;
+    public void SetParticleEmission(string _id, int val)
+    {
+        if (setParticleEmissionEvent != null)
+        {
+            setParticleEmissionEvent(_id, val);
+        }
+    }
+
 }
