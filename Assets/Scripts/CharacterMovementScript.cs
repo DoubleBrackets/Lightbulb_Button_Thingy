@@ -17,6 +17,8 @@ public class CharacterMovementScript : MonoBehaviour
     public float speed = 6f;
     private float accelForce = 40f;
 
+    public float rotationFactor = 0.15f;
+
     public float jumpVel = 10f;
 
     float horizontalInput;
@@ -70,7 +72,7 @@ public class CharacterMovementScript : MonoBehaviour
                 rb.velocity = new Vector3(rb.velocity.x, jumpVel, rb.velocity.z);
             }
         }
-        if(Input.GetKeyDown(KeyCode.LeftShift) && !isSitting && ObjectManipulateScript.objectManipulateScript.GetTargetObject() == null)
+        if(Input.GetKeyDown(KeyCode.LeftShift) && !isSitting && !SimpleMove.simpleMove.IsGrabbed())
         {
             //Sit down
             movementDisabledSitting = 0.5f;
@@ -151,7 +153,7 @@ public class CharacterMovementScript : MonoBehaviour
                 StopSitting();
             Vector3 dir = Quaternion.Euler(0, targetAngle, 0) * Vector3.forward;
 
-            gameObject.transform.rotation = Quaternion.Euler(0, Mathf.SmoothDampAngle(transform.rotation.eulerAngles.y, targetAngle, ref turnVel, 0.15f), 0);
+            gameObject.transform.rotation = Quaternion.Euler(0, Mathf.SmoothDampAngle(transform.rotation.eulerAngles.y, targetAngle, ref turnVel, rotationFactor), 0);
 
             float currentSpeed = new Vector3(rb.velocity.x, 0, rb.velocity.z).magnitude;
 

@@ -48,7 +48,7 @@ public class PlayerButtonScript : MonoBehaviour
         if (collRb != null)
         {
             //float force = Mathf.Abs(collRb.velocity.y*collRb.mass - rb.velocity.y*rb.mass);
-            force = Mathf.Abs(collRb.mass * collision.relativeVelocity.y)*0.75f;
+            force = Mathf.Abs(Mathf.Max(rb.mass,collRb.mass) * collision.relativeVelocity.y)*0.75f;
             ButtonPress(force);
         }
         else if(rb.velocity.y <= 0)
@@ -61,6 +61,7 @@ public class PlayerButtonScript : MonoBehaviour
     {
         print(force);
         force -= minForce;
+        UIScript.uiScript.SetChargeBar(force, (winForce - minForce));
         PlayerParticleManager.playerParticleManager.SetParticleBurstCount("LightbulbElectricity", (int)(force*0.6f));
         PlayerParticleManager.playerParticleManager.PlayParticle("LightbulbElectricity");
         StartCoroutine(StartLight(force));

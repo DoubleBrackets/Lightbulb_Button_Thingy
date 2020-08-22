@@ -39,7 +39,7 @@ public class FaceAnimationScript : MonoBehaviour
         {
             ChangeFaceState("sitting");
         }
-        else if (ObjectManipulateScript.objectManipulateScript.GetTargetObject() != null)
+        else if (SimpleMove.simpleMove.IsGrabbed())
         {
             ChangeFaceState("moveobject");
         }

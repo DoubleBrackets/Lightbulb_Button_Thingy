@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SimpleMove : MonoBehaviour
 {
+    public static SimpleMove simpleMove;
+
     public LayerMask ground;
     private GameObject Obj;
     private Vector3 objdirection;
@@ -11,6 +13,12 @@ public class SimpleMove : MonoBehaviour
     public Transform holder;
     private float cooldown;
     private float cooldowntime;
+
+    public bool isGrabbing = false;
+    private void Awake()
+    {
+        simpleMove = this;
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -29,7 +37,7 @@ public class SimpleMove : MonoBehaviour
             cooldown = 0;
         }
         RaycastHit hit;
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !CharacterMovementScript.characterMovementScript.isSitting)
         {
             if (Physics.Raycast(transform.position, transform.forward, out hit, 2, ground))
             {
@@ -38,11 +46,12 @@ public class SimpleMove : MonoBehaviour
                 objdirection = transform.position - hit.point;
                 grabbed = true;
                 cooldown = cooldowntime;
+                CharacterMovementScript.characterMovementScript.rotationFactor *= 5;
+                CharacterMovementScript.characterMovementScript.speed /= 2f;
             }
         }
         if (grabbed)
         {
-
             Obj.transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             Obj.transform.position = holder.position;
         }
@@ -56,18 +65,23 @@ public class SimpleMove : MonoBehaviour
         {
             if (Input.GetMouseButtonUp(0) && grabbed)
             {
-                Obj.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-                grabbed = false;
-                Obj = null;
-
+                ReleaseObject();
             }
             else if (Obj.GetComponent<ObjectBehavior>().Gettouching() && cooldown<=0)
             {
-                Obj.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-                grabbed = false;
-                Obj = null;
+                ReleaseObject();
             }
         }
+    }
+
+    private void ReleaseObject()
+    {
+        Obj.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        CharacterMovementScript.characterMovementScript.rotationFactor /= 5;
+        CharacterMovementScript.characterMovementScript.speed *= 2f;
+        grabbed = false;
+        Obj = null;
+
     }
     public GameObject GetObject()
     {
