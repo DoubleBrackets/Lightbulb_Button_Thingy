@@ -4,51 +4,31 @@ using UnityEngine;
 
 public class ObjectBehavior : MonoBehaviour
 {
-    public bool lightmass;
+
+    bool touching=false;
     public GameObject player;
-    public bool grounded;
     //true if light, false if heavy
     // Start is called before the first frame update
-    void Start()
-    {
 
+    private void Update()
+    {
+       
     }
-
-    // Update is called once per frame
-    void Update()
+    public bool Gettouching()
     {
-  
-        ObjectManipulateScript a = player.GetComponent<ObjectManipulateScript>();
-        if (!a.GetObjectGrabbed())
-        {
-            if (grounded && !lightmass)
-            {
-                transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-
-            }
-            else
-            {
-                transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-
-            }
-        }
-
-
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        grounded = true;
-        
+        return touching;
     }
     private void OnCollisionStay(Collision collision)
     {
-        grounded = true;
+    
+            touching = true;
+        
 
     }
+
     private void OnCollisionExit(Collision collision)
     {
-        grounded = false;
+        touching = false;
     }
 }
 

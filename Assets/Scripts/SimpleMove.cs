@@ -8,15 +8,26 @@ public class SimpleMove : MonoBehaviour
     private GameObject Obj;
     private Vector3 objdirection;
     private bool grabbed;
+    public Transform holder;
+    private float cooldown;
+    private float cooldowntime;
     // Start is called before the first frame update
     void Start()
     {
-
+        cooldowntime = .25f;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (cooldown > 0)
+        {
+            cooldown -= Time.deltaTime;
+        }
+        if (cooldown < 0)
+        {
+            cooldown = 0;
+        }
         RaycastHit hit;
         if (Input.GetMouseButtonDown(0))
         {
@@ -26,35 +37,44 @@ public class SimpleMove : MonoBehaviour
                 Obj = hit.collider.gameObject;
                 objdirection = transform.position - hit.point;
                 grabbed = true;
+                cooldown = cooldowntime;
             }
         }
         if (grabbed)
         {
-            Obj.transform.position = (transform.position - objdirection.normalized)*1.15f;
+
             Obj.transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-            Collider[] a = Obj.GetComponents<Collider>();
-            foreach (Collider c in a)
-            {
-                c.isTrigger = true;
-            }
+            Obj.transform.position = holder.position;
         }
 
-        if (Input.GetMouseButtonUp(0) && grabbed)
+       
+    }
+
+    private void LateUpdate()
+    {
+        if (Obj != null)
         {
-            Obj.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-            grabbed = false;
-            Collider[] a = Obj.GetComponents<Collider>();
-            foreach (Collider c in a)
+            if (Input.GetMouseButtonUp(0) && grabbed)
             {
-                c.isTrigger = false;
+                Obj.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+                grabbed = false;
+                Obj = null;
+
             }
-
-            Obj = null;
-
+            else if (Obj.GetComponent<ObjectBehavior>().Gettouching() && cooldown<=0)
+            {
+                Obj.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+                grabbed = false;
+                Obj = null;
+            }
         }
     }
     public GameObject GetObject()
     {
         return Obj;
+    }
+    public bool IsGrabbed()
+    {
+        return grabbed;
     }
 }
