@@ -14,7 +14,7 @@ public class SimpleMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        cooldowntime = .4f;
+        cooldowntime = .3f;
     }
 
     // Update is called once per frame
