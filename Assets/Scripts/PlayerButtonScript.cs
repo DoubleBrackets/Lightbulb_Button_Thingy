@@ -25,8 +25,8 @@ public class PlayerButtonScript : MonoBehaviour
     private float minForce = 2f;
     private float winForce = 50f;
 
-    private float minIntensity = 0f;
-    private float maxIntensity = 7f;
+    private float minIntensity = -0.35f;
+    private float maxIntensity = 8f;
 
     public bool isFlashing = false;
 

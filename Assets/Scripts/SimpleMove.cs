@@ -41,13 +41,13 @@ public class SimpleMove : MonoBehaviour
         {
             if (Physics.Raycast(transform.position, transform.forward, out hit, 2, ground))
             {
-                print(hit.collider.gameObject.name);
                 Obj = hit.collider.gameObject;
                 objdirection = transform.position - hit.point;
                 grabbed = true;
                 cooldown = cooldowntime;
                 CharacterMovementScript.characterMovementScript.rotationFactor *= 5;
                 CharacterMovementScript.characterMovementScript.speed /= 2f;
+                PlayerParticleManager.playerParticleManager.PlayParticle("GrabParticles");
             }
         }
         if (grabbed)
@@ -79,6 +79,7 @@ public class SimpleMove : MonoBehaviour
         Obj.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         CharacterMovementScript.characterMovementScript.rotationFactor /= 5;
         CharacterMovementScript.characterMovementScript.speed *= 2f;
+        PlayerParticleManager.playerParticleManager.StopParticle("GrabParticles");
         grabbed = false;
         Obj = null;
 
