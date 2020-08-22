@@ -11,7 +11,7 @@ public class PlayerButtonScript : MonoBehaviour
     public MeshRenderer lightbulbMat;
 
     private float emissionMinIntensity = 0.4f;
-    private float emissionmaxIntensity = 7f;
+    private float emissionmaxIntensity = 10f;
 
     private Color lightbulbMatColor;
 
@@ -22,7 +22,7 @@ public class PlayerButtonScript : MonoBehaviour
 
     public Light bulbLight;
 
-    private float minForce = 1f;
+    private float minForce = 3f;
     private float winForce = 50f;
 
     private float minIntensity = 0f;
@@ -48,6 +48,7 @@ public class PlayerButtonScript : MonoBehaviour
         if (collRb != null)
         {
             //float force = Mathf.Abs(collRb.velocity.y*collRb.mass - rb.velocity.y*rb.mass);
+            force = Mathf.Abs(collRb.mass * collision.relativeVelocity.y)*0.75f;
             ButtonPress(force);
         }
         else if(rb.velocity.y <= 0)
@@ -58,6 +59,8 @@ public class PlayerButtonScript : MonoBehaviour
     }
     private void ButtonPress(float force)
     {
+        print(force);
+        force -= minForce;
         PlayerParticleManager.playerParticleManager.SetParticleBurstCount("LightbulbElectricity", (int)(force));
         PlayerParticleManager.playerParticleManager.PlayParticle("LightbulbElectricity");
         StartCoroutine(StartLight(force));
@@ -70,7 +73,7 @@ public class PlayerButtonScript : MonoBehaviour
         Vector3 localPos = ren.transform.localPosition;
         localPos.y += 0.07f;
         ren.transform.localPosition = localPos;
-        float ratio = Mathf.Min(1f, (force / winForce));
+        float ratio = Mathf.Min(1f, (force / (winForce-minForce)));
 
         Color c = lightbulbMatColor;
 
