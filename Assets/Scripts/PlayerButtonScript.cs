@@ -22,7 +22,7 @@ public class PlayerButtonScript : MonoBehaviour
 
     public Light bulbLight;
 
-    private float minForce = 3f;
+    private float minForce = 2f;
     private float winForce = 50f;
 
     private float minIntensity = 0f;
@@ -54,14 +54,14 @@ public class PlayerButtonScript : MonoBehaviour
         else if(rb.velocity.y <= 0)
         {
             //float force = -rb.velocity.y;
-            ButtonPress(force);
+            ButtonPress(force*1.2f);
         }
     }
     private void ButtonPress(float force)
     {
         print(force);
         force -= minForce;
-        PlayerParticleManager.playerParticleManager.SetParticleBurstCount("LightbulbElectricity", (int)(force));
+        PlayerParticleManager.playerParticleManager.SetParticleBurstCount("LightbulbElectricity", (int)(force*0.6f));
         PlayerParticleManager.playerParticleManager.PlayParticle("LightbulbElectricity");
         StartCoroutine(StartLight(force));
     }
@@ -77,14 +77,14 @@ public class PlayerButtonScript : MonoBehaviour
 
         Color c = lightbulbMatColor;
 
-        for (int x = 0; x <= 30; x++)
+        for (int x = 0; x <= 40; x++)
         {
-            float intensityValue = emissionMinIntensity + (1 - x / 30f) * ratio * (emissionmaxIntensity - emissionMinIntensity);
+            float intensityValue = emissionMinIntensity + (1 - x / 40f) * ratio * (emissionmaxIntensity - emissionMinIntensity);
 
             c *= intensityValue;
             lightbulbMat.material.SetColor("_EmissionColor", c);
             c = lightbulbMatColor;
-            bulbLight.intensity = minIntensity + (1 - x / 30f) * ratio * (maxIntensity - minIntensity);
+            bulbLight.intensity = minIntensity + (1 - x / 40f) * ratio * (maxIntensity - minIntensity);
             yield return new WaitForFixedUpdate();
         }
         c *= 0;
@@ -94,5 +94,7 @@ public class PlayerButtonScript : MonoBehaviour
         ren.material.SetColor("_EmissionColor", offColor);
         localPos.y -= 0.07f;
         ren.transform.localPosition = localPos;
+
+        PlayerParticleManager.playerParticleManager.StopParticle("LightbulbElectricity");
     }
 }

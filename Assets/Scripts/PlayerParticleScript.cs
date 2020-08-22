@@ -16,6 +16,7 @@ public class PlayerParticleScript : MonoBehaviour
         PlayerParticleManager.playerParticleManager.playParticleEvent += Play;
         PlayerParticleManager.playerParticleManager.stopParticleEvent += Stop;
         PlayerParticleManager.playerParticleManager.setParticleBurstCountEvent += SetBurstCount;
+        PlayerParticleManager.playerParticleManager.setParticleEmissionEvent += SetEmission;
     }
 
 
@@ -60,6 +61,15 @@ public class PlayerParticleScript : MonoBehaviour
             ParticleSystem.Burst burst = em.GetBurst(0);
             burst.count = val;
             em.SetBurst(0,burst);
+        }
+    }
+
+    void SetEmission(string _id, int val)
+    {
+        if (_id.CompareTo(particleId) == 0)
+        {
+            var em = pSys.emission;
+            em.rateOverTime = val;
         }
     }
 }
