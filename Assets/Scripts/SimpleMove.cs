@@ -54,31 +54,7 @@ public class SimpleMove : MonoBehaviour
         {
             Obj.transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             Obj.transform.position = holder.position;
-           float a = Input.GetAxis("Mouse ScrollWheel");
-            float mod = 5;
-            if (Input.GetKey(KeyCode.LeftControl))
-            {
-                if (a > 0)
-                {
-                    Obj.transform.Rotate(Vector3.forward*mod);
-                }
-                else if (a < 0)
-                {
-                    Obj.transform.Rotate(-Vector3.forward*mod);
-                }
-            }
-            else
-            {
-                if (a > 0)
-                {
-                    Obj.transform.Rotate(Vector3.right*mod);
-                }
-                else if (a < 0)
-                {
-                    Obj.transform.Rotate(-Vector3.right*mod);
-                }
-            }
-
+     
         }
         
         }
