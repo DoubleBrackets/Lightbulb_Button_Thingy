@@ -19,16 +19,15 @@ public class ObjectBehavior : MonoBehaviour
         return touching;
     }
     private void OnCollisionStay(Collision collision)
-    {
-    
+    {   
+        if(collision.gameObject.layer == 10)
             touching = true;
-        
-
     }
 
     private void OnCollisionExit(Collision collision)
     {
-        touching = false;
+        if (collision.gameObject.layer == 10)
+            touching = false;
     }
 }
 

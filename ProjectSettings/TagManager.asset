@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Button
   - MoveableObject
+  - RopeEnd
   layers:
   - Default
   - TransparentFX
@@ -21,7 +22,7 @@ TagManager:
   - MoveableObject
   - ButtonTrigger
   - Rope
-  - 
+  - RopeEnd
   - 
   - 
   - 

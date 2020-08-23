@@ -37,14 +37,22 @@ public class SimpleMove : MonoBehaviour
         RaycastHit hit;
         if (Input.GetMouseButtonDown(0) && !CharacterMovementScript.characterMovementScript.isSitting)
         {
-            if (Physics.BoxCast(transform.position, new Vector3(0.25f,1,0.25f),transform.forward, out hit, Quaternion.identity,2, ground))
+            if (Physics.BoxCast(transform.position, new Vector3(0.25f,2,0.25f),transform.forward, out hit, Quaternion.identity,2, ground))
             {
                 if (hit.collider.gameObject.GetComponent<ObjectBehavior>() == null)
                     return;
+                if(hit.collider.gameObject.layer == 14)//Can only grab rope by the ends
+                {
+                    hit.collider.gameObject.transform.SetParent(null);
+                    FixedJoint ropeAttachJoint = hit.collider.gameObject.GetComponent<FixedJoint>();
+                    if (ropeAttachJoint != null)
+                        Destroy(ropeAttachJoint);
+                }
                 Obj = hit.collider.gameObject;
                 objdirection = transform.position - hit.point;
                 grabbed = true;
                 cooldown = cooldowntime;
+                Obj.transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
                 CharacterMovementScript.characterMovementScript.rotationFactor *= 5;
                 CharacterMovementScript.characterMovementScript.speed /= 2f;
                 PlayerParticleManager.playerParticleManager.PlayParticle("GrabParticles");
@@ -52,7 +60,6 @@ public class SimpleMove : MonoBehaviour
         }
         if (grabbed)
         {
-            Obj.transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             Obj.transform.position = holder.position;
         }
 
@@ -63,6 +70,25 @@ public class SimpleMove : MonoBehaviour
     {
         if (Obj != null)
         {
+            if(Input.GetKeyDown(KeyCode.E) && Obj.layer == 14)
+            {
+                RaycastHit hit;
+                //Try to attach rope to something
+                Physics.BoxCast(transform.position, new Vector3(0.25f, 2, 0.25f), transform.forward, out hit, Quaternion.identity, 3, LayerMask.GetMask("MoveableObject"));
+                if(hit.collider != null)
+                {
+                    Rigidbody hitRb = hit.collider.GetComponent<Rigidbody>();
+                    if (hitRb != null)
+                    {
+                        Obj.transform.SetParent(hit.collider.gameObject.transform);
+                        Obj.transform.position = hit.point;
+                        FixedJoint ropeJoint = Obj.AddComponent<FixedJoint>();
+                        ropeJoint.connectedBody = hitRb;
+                        ReleaseObject();
+                        return;
+                    }              
+                }
+            }
             if (Input.GetMouseButtonUp(0) && grabbed)
             {
                 ReleaseObject();
