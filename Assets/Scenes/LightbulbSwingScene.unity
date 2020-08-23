@@ -355,7 +355,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e577c6694f9ad9f4890f547b25f91c4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ren: {fileID: 0}
+  ren: {fileID: 7771445671258391781}
   lightbulbMat: {fileID: 5438353202034185838}
   onColor: {r: 1, g: 0.8156493, b: 0.28773582, a: 0}
   bulbLight: {fileID: 3771235057068485377}
