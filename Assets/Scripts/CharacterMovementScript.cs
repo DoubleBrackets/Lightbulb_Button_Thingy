@@ -56,6 +56,8 @@ public class CharacterMovementScript : MonoBehaviour
     void Update()
     {
         isGrounded = IsGrounded();
+        anim.SetBool("IsInAir", !isGrounded);
+
         if (movementDisabledSitting > 0)
             movementDisabledSitting -= Time.deltaTime;
         if (jumpTimer > 0)
