@@ -44,15 +44,18 @@ public class SimpleMove : MonoBehaviour
                 if(hit.collider.gameObject.layer == 14)//Can only grab rope by the ends
                 {
                     hit.collider.gameObject.transform.SetParent(null);
+                    //Remove any attached joints when picking up rope
                     FixedJoint ropeAttachJoint = hit.collider.gameObject.GetComponent<FixedJoint>();
                     if (ropeAttachJoint != null)
                         Destroy(ropeAttachJoint);
                 }
+                //Transform work
                 Obj = hit.collider.gameObject;
                 objdirection = transform.position - hit.point;
                 grabbed = true;
                 cooldown = cooldowntime;
                 Obj.transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+                //Effects and movement slowdowns
                 CharacterMovementScript.characterMovementScript.rotationFactor *= 5;
                 CharacterMovementScript.characterMovementScript.speed /= 2f;
                 PlayerParticleManager.playerParticleManager.PlayParticle("GrabParticles");
@@ -72,16 +75,17 @@ public class SimpleMove : MonoBehaviour
     {
         if (Obj != null)
         {
-            if(Input.GetKeyDown(KeyCode.E) && Obj.layer == 14)
+            if(Input.GetKeyDown(KeyCode.E) && Obj.layer == 14)//Attaching rope to a moveableObject
             {
                 RaycastHit hit;
-                //Try to attach rope to something
+                //raycast for targets
                 Physics.BoxCast(transform.position, new Vector3(0.25f, 2, 0.25f), transform.forward, out hit, Quaternion.identity, 3, LayerMask.GetMask("MoveableObject"));
                 if(hit.collider != null)
                 {
                     Rigidbody hitRb = hit.collider.GetComponent<Rigidbody>();
                     if (hitRb != null)
                     {
+                        //Create joint and attach
                         Obj.transform.SetParent(hit.collider.gameObject.transform);
                         Obj.transform.position = hit.point;
                         FixedJoint ropeJoint = Obj.AddComponent<FixedJoint>();
@@ -91,10 +95,12 @@ public class SimpleMove : MonoBehaviour
                     }              
                 }
             }
+            //Release object on mouserelease
             if (Input.GetMouseButtonUp(0) && grabbed)
             {
                 ReleaseObject();
             }
+            //Release object if hits terrain
             else if (Obj.GetComponent<ObjectBehavior>().Gettouching() && cooldown<=0)
             {
                 ReleaseObject();

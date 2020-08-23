@@ -24,7 +24,7 @@ public class RopeScript : MonoBehaviour
     private void Update()
     {
         int iterator = 0;
-        foreach(Transform t in ropeSegments)
+        foreach(Transform t in ropeSegments)//linerenderer draws rope
         {
             lineRen.SetPosition(iterator, t.position);
             iterator++;
