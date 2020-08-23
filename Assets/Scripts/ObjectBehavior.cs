@@ -20,15 +20,24 @@ public class ObjectBehavior : MonoBehaviour
     }
     private void OnCollisionStay(Collision collision)
     {
-    
+
+        if (collision.collider.gameObject.layer != 8)
+        {
             touching = true;
-        
+
+        }
+
 
     }
 
     private void OnCollisionExit(Collision collision)
     {
-        touching = false;
+
+        if (collision.collider.gameObject.layer != 8)
+        {
+            touching = false;
+
+        }
     }
 }
 
