@@ -61,10 +61,12 @@ public class SimpleMove : MonoBehaviour
         if (grabbed)
         {
             Obj.transform.position = holder.position;
+     
+        }
+        
         }
 
        
-    }
 
     private void LateUpdate()
     {
