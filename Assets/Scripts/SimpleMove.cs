@@ -13,6 +13,7 @@ public class SimpleMove : MonoBehaviour
     public Transform holder;
     private float cooldown;
     private float cooldowntime;
+    public float ForceMod;
     private void Awake()
     {
         simpleMove = this;
@@ -64,7 +65,12 @@ public class SimpleMove : MonoBehaviour
         if (grabbed)
         {
             Obj.transform.position = holder.position;
-     
+            if (Input.GetMouseButtonDown(1))
+            {
+                Obj.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+                Obj.GetComponent<Rigidbody>().AddForce((Camera.main.transform.forward*ForceMod)/Obj.GetComponent<Rigidbody>().mass,ForceMode.VelocityChange);
+                grabbed = false;
+            }
         }
         
         }
