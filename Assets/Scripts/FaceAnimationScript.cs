@@ -39,6 +39,10 @@ public class FaceAnimationScript : MonoBehaviour
         {
             ChangeFaceState("sitting");
         }
+        else if(SimpleMove.simpleMove.isThrowing)
+        {
+            ChangeFaceState("throwobject");
+        }
         else if (SimpleMove.simpleMove.IsGrabbed())
         {
             ChangeFaceState("moveobject");

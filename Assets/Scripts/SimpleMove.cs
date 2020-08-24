@@ -13,7 +13,10 @@ public class SimpleMove : MonoBehaviour
     public Transform holder;
     private float cooldown;
     private float cooldowntime;
+
     public float ForceMod;
+
+    public bool isThrowing = false;
     private void Awake()
     {
         simpleMove = this;
@@ -65,16 +68,23 @@ public class SimpleMove : MonoBehaviour
         if (grabbed)
         {
             Obj.transform.position = holder.position;
-            if (Input.GetMouseButtonDown(1))
+            if (Input.GetMouseButtonDown(1))//Throwing
             {
-                Obj.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-                Obj.GetComponent<Rigidbody>().AddForce((Camera.main.transform.forward*ForceMod)/Obj.GetComponent<Rigidbody>().mass,ForceMode.VelocityChange);
-                grabbed = false;
+                StartCoroutine(IsThrowingState());
+                PlayerParticleManager.playerParticleManager.PlayParticle("LaunchParticles");
+                Obj.GetComponent<Rigidbody>().AddForce((gameObject.transform.forward*ForceMod)/Obj.GetComponent<Rigidbody>().mass,ForceMode.VelocityChange);
+                ReleaseObject();
             }
         }
         
-        }
+    }
 
+    IEnumerator IsThrowingState()
+    {
+        isThrowing = true;
+        yield return new WaitForSeconds(0.75f);
+        isThrowing = false;
+    }
        
 
     private void LateUpdate()
