@@ -96,7 +96,7 @@ public class SimpleMove : MonoBehaviour
             {
                 RaycastHit hit;
                 //raycast for targets
-                Physics.BoxCast(transform.position, new Vector3(0.25f, 2, 0.25f), transform.forward, out hit, Quaternion.identity, 3, LayerMask.GetMask("MoveableObject"));
+                Physics.BoxCast(transform.position-transform.up, new Vector3(0.25f, 2, 0.25f), transform.forward, out hit, Quaternion.identity, 3, LayerMask.GetMask("MoveableObject"));
                 if(hit.collider != null)
                 {
                     Rigidbody hitRb = hit.collider.GetComponent<Rigidbody>();
