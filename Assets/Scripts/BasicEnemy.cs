@@ -81,12 +81,16 @@ public class BasicEnemy : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if ((collision.relativeVelocity * collision.rigidbody.mass).magnitude>=3){
-            if (collision.gameObject.layer != 8)
+        if (collision.rigidbody)
+        {
+            if ((collision.relativeVelocity * collision.rigidbody.mass).magnitude >= 3)
             {
-                forcecounter+= (collision.relativeVelocity * collision.rigidbody.mass).magnitude;
+                if (collision.gameObject.layer != 8)
+                {
+                    forcecounter += (collision.relativeVelocity * collision.rigidbody.mass).magnitude;
+                }
+
             }
-         
         }
     }
 }
