@@ -67,6 +67,7 @@ public class SimpleMove : MonoBehaviour
         }
         if (grabbed)
         {
+            holder.localPosition = new Vector3(holder.localPosition.x, Obj.GetComponent<ObjectBehavior>().Modifier, holder.localPosition.z); ;
             Obj.transform.position = holder.position;
             if (Input.GetMouseButtonDown(1))//Throwing
             {

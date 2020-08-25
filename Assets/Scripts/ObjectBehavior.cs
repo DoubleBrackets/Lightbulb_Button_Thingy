@@ -7,6 +7,7 @@ public class ObjectBehavior : MonoBehaviour
 
     bool touching=false;
     public GameObject player;
+    public float Modifier;
     //true if light, false if heavy
     // Start is called before the first frame update
 
