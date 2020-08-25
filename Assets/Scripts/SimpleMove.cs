@@ -41,7 +41,7 @@ public class SimpleMove : MonoBehaviour
         RaycastHit hit;
         if (Input.GetMouseButtonDown(0) && !CharacterMovementScript.characterMovementScript.isSitting)
         {
-            if (Physics.BoxCast(transform.position, new Vector3(0.25f,2,0.25f),transform.forward, out hit, Quaternion.identity,2, ground))
+            if (Physics.BoxCast(transform.position-transform.up, new Vector3(0.25f,2,0.25f),transform.forward, out hit, Quaternion.identity,2, ground))
             {
                 if (hit.collider.gameObject.GetComponent<ObjectBehavior>() == null)
                     return;

@@ -4,15 +4,16 @@ using UnityEngine;
 using UnityEngine.AI;
 public class BasicEnemy : MonoBehaviour
 {
-    NavMeshAgent me;
     public Transform target;
     CharacterMovementScript a;
     float cooldown;
     float cooldowntime=.25f;
+    float forcecounter=0;
+    public float forcelimiter;
+    public NavMeshAgent me;
     // Start is called before the first frame update
     void Start()
     {
-        me = gameObject.GetComponent<NavMeshAgent>();
         a = target.GetComponent<CharacterMovementScript>();
     }
 
@@ -37,12 +38,36 @@ public class BasicEnemy : MonoBehaviour
         {
             gameObject.GetComponent<Animator>().SetBool("Attacking", false);
         }
+        if (forcecounter >= forcelimiter)
+        {
+            Debug.Log("dead");
+            gameObject.layer = 11;
+            foreach( Transform child in transform)
+            {
+                if (child.name == "Armature")
+                {
+                    Destroy(child.gameObject);
+                }
+                else
+                {
+                    child.gameObject.layer = 11;
+                    if (child.gameObject.GetComponent<Rigidbody>())
+                    {
+                        child.gameObject.GetComponent<Rigidbody>().isKinematic = false;
+                        child.gameObject.GetComponent<ObjectBehavior>().enabled = true;
+                    }
+                }
+            }
+            gameObject.GetComponent<NavMeshAgent>().enabled = false;
+            Destroy(gameObject.GetComponent<NavMeshAgent>());
+            Destroy(gameObject.GetComponent<Animator>());
+            Destroy(this);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
         float fmod = 20;
-        Debug.Log("okay");
         if (gameObject.GetComponent<Animator>().GetBool("Attacking"))
         {
             if (other.gameObject.layer == 8)
@@ -53,5 +78,15 @@ public class BasicEnemy : MonoBehaviour
             }
         }
 
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if ((collision.relativeVelocity * collision.rigidbody.mass).magnitude>=3){
+            if (collision.gameObject.layer != 8)
+            {
+                forcecounter+= (collision.relativeVelocity * collision.rigidbody.mass).magnitude;
+            }
+         
+        }
     }
 }
