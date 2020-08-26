@@ -1018,7 +1018,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7284083440897077267}
   m_Layer: 0
-  m_Name: CarrotParent
+  m_Name: CarrotFinished
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1204,7 +1204,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  forcelimiter: 5
+  forcelimiter: 15
   me: {fileID: 7959255777177246822}
 --- !u!95 &7959255777177246819
 Animator:

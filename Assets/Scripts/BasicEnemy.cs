@@ -100,14 +100,11 @@ public class BasicEnemy : MonoBehaviour
     {
         if (collision.rigidbody)
         {
-            if ((collision.relativeVelocity * collision.rigidbody.mass).magnitude >= 3)
-            {
+            print(forcecounter);
                 if (collision.gameObject.layer != 8)
                 {
                     forcecounter += (collision.relativeVelocity * collision.rigidbody.mass).magnitude;
                 }
-
-            }
         }
     }
 }
