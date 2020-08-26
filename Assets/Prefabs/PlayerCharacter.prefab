@@ -4964,7 +4964,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 1
+  moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: 0
@@ -5518,11 +5518,11 @@ ParticleSystem:
   ShapeModule:
     serializedVersion: 6
     enabled: 1
-    type: 2
+    type: 0
     angle: 25
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
-    radiusThickness: 0.1
+    radiusThickness: 1
     donutRadius: 0.2
     m_Position: {x: 0.011652142, y: 0.16053438, z: 0}
     m_Rotation: {x: -90, y: 0, z: 0}
@@ -21034,6 +21034,7 @@ MonoBehaviour:
   isSitting: 0
   isChangingPosition: 0
   isStunned: 0
+  isInvuln: 0
 --- !u!136 &53418535
 CapsuleCollider:
   m_ObjectHideFlags: 0
