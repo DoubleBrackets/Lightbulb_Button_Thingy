@@ -31,7 +31,11 @@ public class FaceAnimationScript : MonoBehaviour
 
     private void Update()
     {
-        if (PlayerButtonScript.playerButtonScript.isFlashing)
+        if (CharacterMovementScript.characterMovementScript.isStunned)
+        {
+            ChangeFaceState("stunned");
+        }
+        else if (PlayerButtonScript.playerButtonScript.isFlashing)
         {
             ChangeFaceState("flashing");
         }

@@ -5,9 +5,15 @@ using UnityEngine.AI;
 public class BasicEnemy : MonoBehaviour
 {
     public Transform target;
+
     CharacterMovementScript a;
+
     float cooldown;
-    float cooldowntime=.25f;
+    float cooldowntime=0.8f;
+
+    float immunityTime = 0.4f;
+    float immunityTimer = 0f;
+
     float forcecounter=0;
     public float forcelimiter;
     public NavMeshAgent me;
@@ -27,12 +33,24 @@ public class BasicEnemy : MonoBehaviour
         else if(cooldown <= 0)
         {
             cooldown = 0;
-            a.enabled = true;
+            a.Stunned(false);
+            immunityTimer = immunityTime;
         }
+        if (immunityTimer >= 0)
+        {
+            immunityTimer -= Time.deltaTime;
+        }
+        else if (immunityTimer <= 0)
+        {
+            immunityTimer = 0;
+            a.isInvuln = false;
+        }
+
         me.SetDestination(target.position);
-        if (Vector3.Distance(target.position,gameObject.transform.position)<2.5)
+        if (Vector3.Distance(target.position,gameObject.transform.position)<1.5 && !a.isInvuln)
         {
             gameObject.GetComponent<Animator>().SetBool("Attacking", true);
+            KickTarget();
         }
         else
         {
@@ -65,20 +83,19 @@ public class BasicEnemy : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void KickTarget()
     {
+        Rigidbody rb = target.gameObject.GetComponent<Rigidbody>();
         float fmod = 20;
-        if (gameObject.GetComponent<Animator>().GetBool("Attacking"))
+        if (rb != null )
         {
-            if (other.gameObject.layer == 8)
-            {
-                other.gameObject.GetComponent<Rigidbody>().velocity=(-transform.forward*fmod);
-                a.enabled = false;
-                cooldown = cooldowntime;
-            }
+            a.isInvuln = true;
+            rb.velocity = (-transform.forward * fmod);
+            a.Stunned(true);
+            cooldown = cooldowntime;
         }
-
     }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.rigidbody)

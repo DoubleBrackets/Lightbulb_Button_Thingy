@@ -39,7 +39,7 @@ public class SimpleMove : MonoBehaviour
             cooldown = 0;
         }
         RaycastHit hit;
-        if (Input.GetMouseButtonDown(0) && !CharacterMovementScript.characterMovementScript.isSitting)
+        if (Input.GetMouseButtonDown(0) && !CharacterMovementScript.characterMovementScript.isSitting && !CharacterMovementScript.characterMovementScript.isStunned)
         {
             if (Physics.BoxCast(transform.position-transform.up, new Vector3(0.25f,2,0.25f),transform.forward, out hit, Quaternion.identity,2, ground))
             {
@@ -112,8 +112,8 @@ public class SimpleMove : MonoBehaviour
                     }              
                 }
             }
-            //Release object on mouserelease
-            if (Input.GetMouseButtonUp(0) && grabbed)
+            //Release object on mouserelease or stunned
+            if ((Input.GetMouseButtonUp(0) || CharacterMovementScript.characterMovementScript.isStunned )&& grabbed)
             {
                 ReleaseObject();
             }

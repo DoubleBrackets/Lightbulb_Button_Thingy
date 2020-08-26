@@ -33,9 +33,13 @@ public class CharacterMovementScript : MonoBehaviour
     private float movementDisabledSitting = 0f;
     private float feetCollHeight;
 
+    private float slowdownFactor = 0.8f;
+
     public bool isGrounded = false;
     public bool isSitting = false;
     public bool isChangingPosition = false;
+    public bool isStunned = false;
+    public bool isInvuln = false;
 
     LayerMask groundedMask;
     // Start is called before the first frame update
@@ -64,7 +68,7 @@ public class CharacterMovementScript : MonoBehaviour
             jumpTimer -= Time.deltaTime;
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
-        if(Input.GetKeyDown(KeyCode.Space) && jumpTimer <= 0 && movementDisabledSitting <= 0)
+        if(Input.GetKeyDown(KeyCode.Space) && jumpTimer <= 0 && movementDisabledSitting <= 0 && !isStunned)
         {
             if(isGrounded && canJump)
             {
@@ -74,7 +78,7 @@ public class CharacterMovementScript : MonoBehaviour
                 rb.velocity = new Vector3(rb.velocity.x, jumpVel, rb.velocity.z);
             }
         }
-        if(Input.GetKeyDown(KeyCode.LeftShift) && !isSitting && !SimpleMove.simpleMove.IsGrabbed())
+        if(Input.GetKeyDown(KeyCode.LeftShift) && !isSitting && !SimpleMove.simpleMove.IsGrabbed() && !isStunned)
         {
             //Sit down
             movementDisabledSitting = 0.5f;
@@ -150,7 +154,7 @@ public class CharacterMovementScript : MonoBehaviour
 
         //headTarget.transform.position = transform.position + (Quaternion.Euler(Camera.main.transform.rotation.eulerAngles) * Vector3.forward).normalized * radius;
 
-        if (inputVector.magnitude > 0 && movementDisabledSitting <= 0)
+        if (inputVector.magnitude > 0 && movementDisabledSitting <= 0 && !isStunned)
         {
             anim.SetBool("IsMoving", true);
             if (isSitting)
@@ -179,14 +183,29 @@ public class CharacterMovementScript : MonoBehaviour
         }
         else
         {
-            rb.velocity = new Vector3(rb.velocity.x * 0.8f,rb.velocity.y,rb.velocity.z * 0.8f);
-            rb.angularVelocity = rb.angularVelocity * 0.8f;
+            rb.velocity = new Vector3(rb.velocity.x * slowdownFactor, rb.velocity.y,rb.velocity.z * slowdownFactor);
+            rb.angularVelocity = rb.angularVelocity * slowdownFactor;
             if (isGrounded)
             {
                 coll.material.dynamicFriction = dynFric;
                 feetColl.material.dynamicFriction = dynFric;
             }
             anim.SetBool("IsMoving", false);
+        }
+    }
+
+    public void Stunned(bool val)
+    {
+        isStunned = val;
+        if(val)
+        {
+            PlayerParticleManager.playerParticleManager.PlayParticle("StunnedParticles");
+            slowdownFactor = 0.97f;
+        }
+        else
+        {
+            PlayerParticleManager.playerParticleManager.StopParticle("StunnedParticles");
+            slowdownFactor = 0.8f;
         }
     }
 }
