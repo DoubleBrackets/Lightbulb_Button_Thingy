@@ -61,3 +61,4 @@ crashlytics-build.properties
 Assets/TextMesh Pro/Resources/Shaders/TMP_Sprite.shader
 Assets/TextMesh Pro/Resources/Shaders/TMP_Sprite.shader.meta
 Assets/TextMesh Pro/Resources/Shaders/TMPro.cginc
+ProjectSettings/QualitySettings.asset
