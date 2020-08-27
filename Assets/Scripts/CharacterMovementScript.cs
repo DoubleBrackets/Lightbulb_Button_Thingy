@@ -150,7 +150,7 @@ public class CharacterMovementScript : MonoBehaviour
         float targetAngle = Camera.main.transform.rotation.eulerAngles.y - inputAngle + 90f;
 
 
-        float radius = 10f;
+        //float radius = 10f;
 
         //headTarget.transform.position = transform.position + (Quaternion.Euler(Camera.main.transform.rotation.eulerAngles) * Vector3.forward).normalized * radius;
 

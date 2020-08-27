@@ -17,6 +17,7 @@ public class PlayerParticleScript : MonoBehaviour
         PlayerParticleManager.playerParticleManager.stopParticleEvent += Stop;
         PlayerParticleManager.playerParticleManager.setParticleBurstCountEvent += SetBurstCount;
         PlayerParticleManager.playerParticleManager.setParticleEmissionEvent += SetEmission;
+        PlayerParticleManager.playerParticleManager.setParticleDragEvent += SetDrag;
     }
 
 
@@ -70,6 +71,14 @@ public class PlayerParticleScript : MonoBehaviour
         {
             var em = pSys.emission;
             em.rateOverTime = val;
+        }
+    }
+    void SetDrag(string _id, float val)
+    {
+        if (_id.CompareTo(particleId) == 0)
+        {
+            var lim = pSys.limitVelocityOverLifetime;
+            lim.drag = val;
         }
     }
 }

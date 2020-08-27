@@ -52,4 +52,13 @@ public class PlayerParticleManager : MonoBehaviour
         }
     }
 
+    public event Action<String, float> setParticleDragEvent;
+    public void SetParticleDrag(string _id, float val)
+    {
+        if (setParticleDragEvent != null)
+        {
+            setParticleDragEvent(_id, val);
+        }
+    }
+
 }

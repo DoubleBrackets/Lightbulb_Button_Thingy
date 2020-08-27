@@ -16,6 +16,12 @@ public class RopeScript : MonoBehaviour
         {
             ropeSegments.Add(t);
         }
+        int count = ropeSegments.Count;
+        for(int x = 0;x < count-1;x++)
+        {
+            ConfigurableJoint joint = ropeSegments[x].GetComponent<ConfigurableJoint>();
+            joint.connectedBody = ropeSegments[x + 1].GetComponent<Rigidbody>();
+        }
         ropeSegments[0].gameObject.layer = 14;
         ropeSegments[ropeSegments.Count-1].gameObject.layer = 14;
         lineRen.positionCount = ropeSegments.Count;

@@ -12,7 +12,9 @@ public class FaceAnimationScript : MonoBehaviour
 
     Rigidbody rb;
 
-    string currentState = "default";
+    string currentState = "";
+
+    private bool isBlinking = false;
 
     [Serializable]
     public struct FaceState
@@ -27,17 +29,18 @@ public class FaceAnimationScript : MonoBehaviour
     {
         faceAnimationScript = this;
         rb = gameObject.GetComponent<Rigidbody>();
+        StartCoroutine(BlinkCycle());
     }
 
     private void Update()
     {
-        if (CharacterMovementScript.characterMovementScript.isStunned)
-        {
-            ChangeFaceState("stunned");
-        }
-        else if (PlayerButtonScript.playerButtonScript.isFlashing)
+        if (PlayerButtonScript.playerButtonScript.isFlashing)
         {
             ChangeFaceState("flashing");
+        }
+        else if (CharacterMovementScript.characterMovementScript.isStunned)
+        {
+            ChangeFaceState("stunned");
         }
         else if (CharacterMovementScript.characterMovementScript.isSitting || CharacterMovementScript.characterMovementScript.isChangingPosition)
         {
@@ -57,11 +60,26 @@ public class FaceAnimationScript : MonoBehaviour
         }
         else if (rb.velocity.y < 0 && !CharacterMovementScript.characterMovementScript.isGrounded)
         {
-            ChangeFaceState("fall");
+            ChangeFaceState("jump");
+        }
+        else if (isBlinking)
+        {
+            Blink();
         }
         else
         {
             ChangeFaceState("default");
+        }
+    }
+
+    IEnumerator BlinkCycle()
+    {
+        while(true)
+        {
+            yield return new WaitForSeconds(2.5f + UnityEngine.Random.Range(0.5f,2f));
+            isBlinking = true;
+            yield return new WaitForSeconds(0.25f);
+            isBlinking = false;
         }
     }
 
@@ -77,6 +95,14 @@ public class FaceAnimationScript : MonoBehaviour
                 faceText.text = state.face;
             }
         }
+    }
+
+    private void Blink()
+    {
+        currentState = "blink";
+        string currentFace = faceText.text;
+        currentFace = "-" + currentFace[1] + "-";
+        faceText.text = currentFace;
     }
     
 }

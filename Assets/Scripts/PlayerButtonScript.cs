@@ -64,6 +64,9 @@ public class PlayerButtonScript : MonoBehaviour
         UIScript.uiScript.SetChargeBar(force, (winForce - minForce));
         PlayerParticleManager.playerParticleManager.SetParticleBurstCount("LightbulbElectricity", (int)(force*0.6f));
         PlayerParticleManager.playerParticleManager.PlayParticle("LightbulbElectricity");
+        PlayerParticleManager.playerParticleManager.SetParticleBurstCount("LandParticles", (int)(3+force * 0.8f));
+        PlayerParticleManager.playerParticleManager.SetParticleDrag("LandParticles", 2 * (1 - force/(winForce - minForce)));
+        PlayerParticleManager.playerParticleManager.PlayParticle("LandParticles");
         StartCoroutine(StartLight(force));
     }
     IEnumerator StartLight(float force)
