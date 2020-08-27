@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 public class BasicEnemy : MonoBehaviour
 {
-    public Transform target;
+    private Transform target;
 
     CharacterMovementScript a;
 
@@ -16,10 +16,12 @@ public class BasicEnemy : MonoBehaviour
 
     float forcecounter=0;
     public float forcelimiter;
+    private float forceLimit = 5f;
     public NavMeshAgent me;
     // Start is called before the first frame update
     void Start()
     {
+        target = CharacterMovementScript.characterMovementScript.gameObject.transform;
         a = target.GetComponent<CharacterMovementScript>();
     }
 
@@ -100,11 +102,15 @@ public class BasicEnemy : MonoBehaviour
     {
         if (collision.rigidbody)
         {
-            print(forcecounter);
-                if (collision.gameObject.layer != 8)
+            if (collision.gameObject.layer != 8)
+            {
+                float mag = (collision.relativeVelocity * collision.rigidbody.mass).magnitude;
+                print(mag);
+                if (mag > forceLimit)
                 {
-                    forcecounter += (collision.relativeVelocity * collision.rigidbody.mass).magnitude;
+                    forcecounter += mag;
                 }
+            }
         }
     }
 }
