@@ -16,7 +16,7 @@ public class BasicEnemy : MonoBehaviour
 
     float forcecounter=0;
     public float forcelimiter;
-    private float forceLimit = 8f;
+    private float forceLimit = 3f;
     public NavMeshAgent me;
 
     private float damageDebounce = 0f;
@@ -111,12 +111,12 @@ public class BasicEnemy : MonoBehaviour
             {
                 float mag = (collision.relativeVelocity * collision.rigidbody.mass).magnitude;
                 print(mag);
-                if (mag >= 3f)
+                if (mag > forceLimit)
                 {
                     forcecounter += mag;
                     damageDebounce = 0.5f;
                 }
-                }
+            }
         }
     }
 }
