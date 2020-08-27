@@ -699,7 +699,7 @@ PrefabInstance:
     - target: {fileID: 6983337109563178708, guid: 9e1f0645dda074e45a6f6be20cca5c11,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 1e-45
       objectReference: {fileID: 0}
     - target: {fileID: 6983337109563178708, guid: 9e1f0645dda074e45a6f6be20cca5c11,
         type: 3}
@@ -729,12 +729,12 @@ PrefabInstance:
     - target: {fileID: 6983337110238536639, guid: 9e1f0645dda074e45a6f6be20cca5c11,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.000000018722702
+      value: 0.000000018719827
       objectReference: {fileID: 0}
     - target: {fileID: 6983337110238536639, guid: 9e1f0645dda074e45a6f6be20cca5c11,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0000000044198303
+      value: -0.0000000044191526
       objectReference: {fileID: 0}
     - target: {fileID: 6983337110238536639, guid: 9e1f0645dda074e45a6f6be20cca5c11,
         type: 3}
@@ -754,12 +754,12 @@ PrefabInstance:
     - target: {fileID: 6983337110314839690, guid: 9e1f0645dda074e45a6f6be20cca5c11,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000000016878644
+      value: -0.00000001687864
       objectReference: {fileID: 0}
     - target: {fileID: 6983337110314839690, guid: 9e1f0645dda074e45a6f6be20cca5c11,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.000000003342307
+      value: 0.0000000033423064
       objectReference: {fileID: 0}
     - target: {fileID: 6983337110314839690, guid: 9e1f0645dda074e45a6f6be20cca5c11,
         type: 3}
@@ -849,11 +849,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CheeseFinish
-      objectReference: {fileID: 0}
-    - target: {fileID: 6684757225329223917, guid: 2ff787e30cba9364bb3a880a26a1da0c,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ff787e30cba9364bb3a880a26a1da0c, type: 3}
@@ -978,21 +973,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3437113765450358883, guid: 58ecb20e747551046a262fb1255bcaec,
-        type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5913421263025723186, guid: 58ecb20e747551046a262fb1255bcaec,
-        type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7241660518835256490, guid: 58ecb20e747551046a262fb1255bcaec,
-        type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7284083440897077267, guid: 58ecb20e747551046a262fb1255bcaec,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1052,11 +1032,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CarrotFinished
-      objectReference: {fileID: 0}
-    - target: {fileID: 8535756421743540072, guid: 58ecb20e747551046a262fb1255bcaec,
-        type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 58ecb20e747551046a262fb1255bcaec, type: 3}

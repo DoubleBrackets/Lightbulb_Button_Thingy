@@ -16,8 +16,10 @@ public class BasicEnemy : MonoBehaviour
 
     float forcecounter=0;
     public float forcelimiter;
-    private float forceLimit = 5f;
+    private float forceLimit = 8f;
     public NavMeshAgent me;
+
+    private float damageDebounce = 0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -47,7 +49,10 @@ public class BasicEnemy : MonoBehaviour
             immunityTimer = 0;
             a.isInvuln = false;
         }
-
+        if(damageDebounce >= 0f)
+        {
+            damageDebounce -= Time.deltaTime;
+        }
         me.SetDestination(target.position);
         if (Vector3.Distance(target.position,gameObject.transform.position)<1.5 && !a.isInvuln)
         {
@@ -100,7 +105,7 @@ public class BasicEnemy : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.rigidbody)
+        if (collision.rigidbody && damageDebounce <= 0)
         {
             if (collision.gameObject.layer != 8)
             {
@@ -109,6 +114,7 @@ public class BasicEnemy : MonoBehaviour
                 if (mag > forceLimit)
                 {
                     forcecounter += mag;
+                    damageDebounce = 0.5f;
                 }
             }
         }

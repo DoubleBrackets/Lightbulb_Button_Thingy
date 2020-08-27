@@ -1198,8 +1198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa1fbe755b7dfd2408cac27d051d93ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  forcelimiter: 0.5
+  forcelimiter: 40
   me: {fileID: 6684757225007460865}
 --- !u!95 &6684757225007460867
 Animator:
@@ -1246,7 +1245,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6684757225329223906}
   m_Layer: 0
-  m_Name: CheeseParent
+  m_Name: CheeseFinish
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
