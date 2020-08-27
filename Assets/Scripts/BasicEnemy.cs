@@ -111,12 +111,12 @@ public class BasicEnemy : MonoBehaviour
             {
                 float mag = (collision.relativeVelocity * collision.rigidbody.mass).magnitude;
                 print(mag);
-                if (mag > forceLimit)
+                if (mag >= 3f)
                 {
                     forcecounter += mag;
                     damageDebounce = 0.5f;
                 }
-            }
+                }
         }
     }
 }
