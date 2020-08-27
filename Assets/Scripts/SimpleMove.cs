@@ -17,6 +17,8 @@ public class SimpleMove : MonoBehaviour
     public float ForceMod;
 
     public bool isThrowing = false;
+
+    int prevLayer;
     private void Awake()
     {
         simpleMove = this;
@@ -55,6 +57,9 @@ public class SimpleMove : MonoBehaviour
                 }
                 //Transform work
                 Obj = hit.collider.gameObject;
+                prevLayer = Obj.layer;
+                foreach(Transform obj in Obj.transform)
+                    obj.gameObject.layer = 15;
                 objdirection = transform.position - hit.point;
                 grabbed = true;
                 cooldown = cooldowntime;
@@ -131,6 +136,9 @@ public class SimpleMove : MonoBehaviour
         CharacterMovementScript.characterMovementScript.rotationFactor /= 5;
         CharacterMovementScript.characterMovementScript.speed *= 2f;
         PlayerParticleManager.playerParticleManager.StopParticle("GrabParticles");
+        Obj.layer = prevLayer;
+        foreach (Transform obj in Obj.transform)
+            obj.gameObject.layer = prevLayer;
         grabbed = false;
         Obj = null;
 
