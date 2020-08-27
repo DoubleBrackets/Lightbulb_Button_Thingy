@@ -1203,7 +1203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa1fbe755b7dfd2408cac27d051d93ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forcelimiter: 40
+  forcelimiter: 15
   me: {fileID: 7959255777177246822}
 --- !u!95 &7959255777177246819
 Animator:
@@ -1358,7 +1358,7 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8187215830818381934}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
   m_Convex: 1
