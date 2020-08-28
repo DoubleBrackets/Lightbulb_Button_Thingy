@@ -108,18 +108,34 @@ public class UIScript : MonoBehaviour
         levelPassedUI.SetActive(true);
     }
 
+
+
     public void ChangeScene(string name)
     {
         if (SceneManager.GetSceneByName(name) != null)
         {
+            StartCoroutine(ChangeSceneCo(name));
             Time.timeScale = 1;
-            SceneManager.LoadScene(name);
         }
+    }
+
+    IEnumerator ChangeSceneCo(string name)
+    {
+        FadeScript.fadeScript.FadeOut();
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene(name);
     }
 
     public void ReloadScene()
     {
+        StartCoroutine(ReloadSceneCo());
         Time.timeScale = 1;
+    }
+
+    IEnumerator ReloadSceneCo()
+    {
+        FadeScript.fadeScript.FadeOut();
+        yield return new WaitForSeconds(1f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

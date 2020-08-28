@@ -8,6 +8,7 @@ public class SimpleMove : MonoBehaviour
 
     public LayerMask ground;
     private GameObject Obj;
+    private FixedJoint fJoint;
     private Vector3 objdirection;
     private bool grabbed;
     public Transform holder;
@@ -17,6 +18,8 @@ public class SimpleMove : MonoBehaviour
     public float ForceMod;
 
     public bool isThrowing = false;
+
+    private float mod;
 
     int prevLayer;
     private void Awake()
@@ -61,20 +64,27 @@ public class SimpleMove : MonoBehaviour
                 Obj.layer = 15;
                 foreach (Transform obj in Obj.transform)
                     obj.gameObject.layer = 15;
+
+                mod = Obj.GetComponent<ObjectBehavior>().Modifier;
+                holder.localPosition = new Vector3(holder.localPosition.x,mod , holder.localPosition.z+mod);
+                Obj.transform.position = holder.position;
                 objdirection = transform.position - hit.point;
                 grabbed = true;
                 cooldown = cooldowntime;
-                Obj.transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+                //Creates joint
+                fJoint = Obj.AddComponent<FixedJoint>();
+                fJoint.connectedMassScale = 0.01f;
+                
+                fJoint.connectedBody = holder.GetComponentInParent<Rigidbody>();
+               // Obj.transform.GetComponent<Rigidbody>().isKinematic = true;// constraints = RigidbodyConstraints.FreezeAll;
                 //Effects and movement slowdowns
-                CharacterMovementScript.characterMovementScript.rotationFactor *= 5;
-                CharacterMovementScript.characterMovementScript.speed /= 2f;
+                CharacterMovementScript.characterMovementScript.rotationFactor *= 4;
+                CharacterMovementScript.characterMovementScript.speed /= 1.5f;
                 PlayerParticleManager.playerParticleManager.PlayParticle("GrabParticles");
             }
         }
         if (grabbed)
         {
-            holder.localPosition = new Vector3(holder.localPosition.x, Obj.GetComponent<ObjectBehavior>().Modifier, holder.localPosition.z); ;
-            Obj.transform.position = holder.position;
             if (Input.GetMouseButtonDown(1))//Throwing
             {
                 StartCoroutine(IsThrowingState());
@@ -124,18 +134,19 @@ public class SimpleMove : MonoBehaviour
                 ReleaseObject();
             }
             //Release object if hits terrain
-            else if (Obj.GetComponent<ObjectBehavior>().Gettouching() && cooldown<=0)
+            /*else if (Obj.GetComponent<ObjectBehavior>().Gettouching() && cooldown<=0)
             {
                 ReleaseObject();
-            }
+            }*/
         }
     }
 
     private void ReleaseObject()
     {
-        Obj.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-        CharacterMovementScript.characterMovementScript.rotationFactor /= 5;
-        CharacterMovementScript.characterMovementScript.speed *= 2f;
+        Destroy(fJoint);
+        holder.localPosition = new Vector3(holder.localPosition.x, mod, holder.localPosition.z - mod);
+        CharacterMovementScript.characterMovementScript.rotationFactor /= 4;
+        CharacterMovementScript.characterMovementScript.speed *= 1.5f;
         PlayerParticleManager.playerParticleManager.StopParticle("GrabParticles");
         Obj.layer = prevLayer;
         foreach (Transform obj in Obj.transform)
