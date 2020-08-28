@@ -75,7 +75,7 @@ public class PlayerButtonScript : MonoBehaviour
         ren.material.SetColor("_EmissionColor", onColor);
 
         Vector3 localPos = ren.transform.localPosition;
-        localPos.y += 0.07f;
+        localPos.y += 0.1f;
         ren.transform.localPosition = localPos;
         float ratio = Mathf.Min(1f, (force / (winForce-minForce)));
 
@@ -113,7 +113,7 @@ public class PlayerButtonScript : MonoBehaviour
         bulbLight.intensity = 0;
         isFlashing = false;
         ren.material.SetColor("_EmissionColor", offColor);
-        localPos.y -= 0.07f;
+        localPos.y -= 0.1f;
         ren.transform.localPosition = localPos;
 
         PlayerParticleManager.playerParticleManager.StopParticle("LightbulbElectricity");

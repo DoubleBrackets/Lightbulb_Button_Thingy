@@ -181,6 +181,8 @@ public class CharacterMovementScript : MonoBehaviour
             feetColl.material.dynamicFriction = 0f;
             coll.material.staticFriction = 0f;
             feetColl.material.staticFriction = 0f;
+
+            PlayerParticleManager.playerParticleManager.PlayParticle("WalkParticles");
         }
         else
         {
@@ -192,6 +194,7 @@ public class CharacterMovementScript : MonoBehaviour
                 feetColl.material.dynamicFriction = dynFric;
             }
             anim.SetBool("IsMoving", false);
+            PlayerParticleManager.playerParticleManager.StopParticle("WalkParticles");
         }
     }
 
