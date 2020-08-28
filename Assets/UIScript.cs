@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UIScript : MonoBehaviour
 {
@@ -14,16 +15,22 @@ public class UIScript : MonoBehaviour
     public Image chargeIndicator;
     private float maxRatio = -1;
 
+    public GameObject levelPassedUI;
+
+    public int level;
+
+
     private void Awake()
     {
         uiScript = this;
         chargeBarWidth = chargeBar.rectTransform.rect.size.x;
         SetChargeBar(0,1);
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     public void SetChargeBar(float value, float maxValue)
     {
-        float ratio = value / maxValue;
+        float ratio = Mathf.Min(1,value / maxValue);
         StartCoroutine(ChargeBarAnim(ratio));
     }
 
@@ -57,4 +64,18 @@ public class UIScript : MonoBehaviour
         chargeBar.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, chargeBarWidth * ratio);
     }
 
+
+    public void LevelFinished()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        PlayerPrefs.SetInt("LevelUnlocked", level + 1);
+        PlayerPrefs.Save();
+        levelPassedUI.SetActive(true);
+    }
+
+    public void ChangeScene(string name)
+    {
+        if (SceneManager.GetSceneByName(name) != null)
+            SceneManager.LoadScene(name);
+    }
 }

@@ -81,6 +81,22 @@ public class PlayerButtonScript : MonoBehaviour
 
         Color c = lightbulbMatColor;
 
+        if(ratio >= 1)//Level passed
+        {
+            //Light up effect
+            c *= emissionmaxIntensity;
+            lightbulbMat.material.SetColor("_EmissionColor", c);
+            bulbLight.intensity = maxIntensity/4f;
+            PlayerParticleManager.playerParticleManager.PlayParticle("LevelBeatParticles");
+            //Slowdown effect and end UI
+            Time.timeScale = 0.25f;
+            Time.fixedDeltaTime = 0.02f * 0.25f;
+            yield return new WaitForSecondsRealtime(3f);
+            CharacterMovementScript.characterMovementScript.enabled = false;
+            UIScript.uiScript.LevelFinished();
+            yield break;
+        }
+        //Light up effect
         for (int x = 0; x <= 40; x++)
         {
             float intensityValue = emissionMinIntensity + (1 - x / 40f) * ratio * (emissionmaxIntensity - emissionMinIntensity);
@@ -91,6 +107,7 @@ public class PlayerButtonScript : MonoBehaviour
             bulbLight.intensity = minIntensity + (1 - x / 40f) * ratio * (maxIntensity - minIntensity);
             yield return new WaitForFixedUpdate();
         }
+        //Turn off again
         c *= 0;
         lightbulbMat.material.SetColor("_EmissionColor", c);
         bulbLight.intensity = 0;

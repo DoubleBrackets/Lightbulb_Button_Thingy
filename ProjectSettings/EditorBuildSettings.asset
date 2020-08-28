@@ -8,4 +8,19 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/FinalScenes/MainMenuScene.unity
+    guid: 3bf5beedb3bc8b240a1422682928c72c
+  - enabled: 1
+    path: Assets/Scenes/LightbulbSwingScene.unity
+    guid: 8013b5c92ddf5f84a95fd0605291b040
+  - enabled: 1
+    path: Assets/Scenes/FinalScenes/Level1.unity
+    guid: ed7a95d3562282242b2e36bf7e2aea4d
+  - enabled: 1
+    path: Assets/Scenes/FinalScenes/Level2.unity
+    guid: 722e98993d91fe842bf9e5507055187c
+  - enabled: 1
+    path: Assets/Scenes/FinalScenes/Level3.unity
+    guid: 26bc034e21e5d734c9440b7264d85ce4
   m_configObjects: {}

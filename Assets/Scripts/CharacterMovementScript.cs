@@ -53,7 +53,6 @@ public class CharacterMovementScript : MonoBehaviour
         feetCollHeight = feetColl.size.y;
         dynFric = coll.material.dynamicFriction;
         groundedMask = LayerMask.GetMask( "Terrain","MoveableObject");
-        Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
