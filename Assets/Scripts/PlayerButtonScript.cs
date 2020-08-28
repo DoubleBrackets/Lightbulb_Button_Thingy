@@ -51,7 +51,7 @@ public class PlayerButtonScript : MonoBehaviour
             force = Mathf.Abs(Mathf.Max(rb.mass,collRb.mass) * collision.relativeVelocity.y)*0.75f;
             ButtonPress(force);
         }
-        else if(rb.velocity.y <= 0)
+        else
         {
             //float force = -rb.velocity.y;
             ButtonPress(force*1.2f);

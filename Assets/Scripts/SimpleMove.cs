@@ -58,7 +58,8 @@ public class SimpleMove : MonoBehaviour
                 //Transform work
                 Obj = hit.collider.gameObject;
                 prevLayer = Obj.layer;
-                foreach(Transform obj in Obj.transform)
+                Obj.layer = 15;
+                foreach (Transform obj in Obj.transform)
                     obj.gameObject.layer = 15;
                 objdirection = transform.position - hit.point;
                 grabbed = true;
