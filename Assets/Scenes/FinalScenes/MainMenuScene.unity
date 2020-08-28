@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 8b2f67d4471788747a851a054dc38974, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -249,8 +249,8 @@ Camera:
   m_GameObject: {fileID: 310751793}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.6273585, g: 0.8906137, b: 1, a: 0}
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -15033,10 +15033,45 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3246182830433130095, guid: 78ada0b470beaf84e8600cbf81a4ba4c,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -53.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3246182830433130095, guid: 78ada0b470beaf84e8600cbf81a4ba4c,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 75.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3246182830433130095, guid: 78ada0b470beaf84e8600cbf81a4ba4c,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -16.2
+      objectReference: {fileID: 0}
     - target: {fileID: 4034662732943717833, guid: 78ada0b470beaf84e8600cbf81a4ba4c,
         type: 3}
       propertyPath: m_Name
       value: kitchen
+      objectReference: {fileID: 0}
+    - target: {fileID: 5012880808573627497, guid: 78ada0b470beaf84e8600cbf81a4ba4c,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 868fd7e4978192849a47ded205b1a465, type: 2}
+    - target: {fileID: 6215230374960430503, guid: 78ada0b470beaf84e8600cbf81a4ba4c,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -40.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6215230374960430503, guid: 78ada0b470beaf84e8600cbf81a4ba4c,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 67.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6215230374960430503, guid: 78ada0b470beaf84e8600cbf81a4ba4c,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -20.8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 78ada0b470beaf84e8600cbf81a4ba4c, type: 3}
@@ -24651,7 +24686,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 72fb08aac950492498aebd1eea4cde0d, type: 2}
+  - {fileID: 0}
   - {fileID: 2100000, guid: aa57324719cc51c48b6566e8f7825ea0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -26739,6 +26774,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6097853870807178063, guid: cbcdeac86db97474ea22864aa556da16,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.3018868
+      objectReference: {fileID: 0}
+    - target: {fileID: 6097853870807178063, guid: cbcdeac86db97474ea22864aa556da16,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.3018868
+      objectReference: {fileID: 0}
+    - target: {fileID: 6097853870807178063, guid: cbcdeac86db97474ea22864aa556da16,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.3018868
+      objectReference: {fileID: 0}
     - target: {fileID: 6097853871081992784, guid: cbcdeac86db97474ea22864aa556da16,
         type: 3}
       propertyPath: m_Name
