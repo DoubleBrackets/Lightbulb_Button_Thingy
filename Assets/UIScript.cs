@@ -17,6 +17,12 @@ public class UIScript : MonoBehaviour
 
     public GameObject levelPassedUI;
 
+    public GameObject pauseMenuUI;
+
+    private bool paused = false;
+
+    private bool passed = false;
+
     public int level;
 
 
@@ -26,6 +32,14 @@ public class UIScript : MonoBehaviour
         chargeBarWidth = chargeBar.rectTransform.rect.size.x;
         SetChargeBar(0,1);
         Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape) && !passed)
+        {
+            Pause();
+        }
     }
 
     public void SetChargeBar(float value, float maxValue)
@@ -65,8 +79,29 @@ public class UIScript : MonoBehaviour
     }
 
 
+    private void Pause()
+    {
+        if(paused)
+        {
+            //Unpause
+            Time.timeScale = 1;
+            pauseMenuUI.SetActive(false);
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        else
+        {
+            //Pause
+            Time.timeScale = 0;
+            pauseMenuUI.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+        }
+        paused = !paused;
+
+    }
+
     public void LevelFinished()
     {
+        passed = true;
         Cursor.lockState = CursorLockMode.None;
         PlayerPrefs.SetInt("LevelUnlocked", level + 1);
         PlayerPrefs.Save();
@@ -76,6 +111,15 @@ public class UIScript : MonoBehaviour
     public void ChangeScene(string name)
     {
         if (SceneManager.GetSceneByName(name) != null)
+        {
+            Time.timeScale = 1;
             SceneManager.LoadScene(name);
+        }
+    }
+
+    public void ReloadScene()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
