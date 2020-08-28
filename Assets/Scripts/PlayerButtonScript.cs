@@ -22,8 +22,8 @@ public class PlayerButtonScript : MonoBehaviour
 
     public Light bulbLight;
 
-    private float minForce = 2f;
-    private float winForce = 50f;
+    public float minForce = 2f;
+    public float winForce = 50f;
 
     private float minIntensity = -0.35f;
     private float maxIntensity = 8f;

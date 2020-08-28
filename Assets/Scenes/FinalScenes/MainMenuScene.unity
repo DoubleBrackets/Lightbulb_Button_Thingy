@@ -27539,6 +27539,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6097853870654033827, guid: cbcdeac86db97474ea22864aa556da16,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Level3
+      objectReference: {fileID: 0}
     - target: {fileID: 6097853870807178063, guid: cbcdeac86db97474ea22864aa556da16,
         type: 3}
       propertyPath: m_Color.r
@@ -27553,6 +27558,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.b
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6097853870979936207, guid: cbcdeac86db97474ea22864aa556da16,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Level2
       objectReference: {fileID: 0}
     - target: {fileID: 6097853871081992784, guid: cbcdeac86db97474ea22864aa556da16,
         type: 3}
@@ -27633,6 +27643,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.g
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6097853871533693894, guid: cbcdeac86db97474ea22864aa556da16,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Level1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cbcdeac86db97474ea22864aa556da16, type: 3}
