@@ -42,7 +42,8 @@ public class PlayerParticleScript : MonoBehaviour
     {
         if (_id.CompareTo(particleId) == 0)
         {
-            pSys.Play();
+            if(!pSys.isPlaying)
+                pSys.Play();
         }
     }
 
@@ -50,7 +51,8 @@ public class PlayerParticleScript : MonoBehaviour
     {
         if (_id.CompareTo(particleId) == 0)
         {
-            pSys.Stop();
+            if (pSys.isPlaying)
+                pSys.Stop();
         }
     }
 
