@@ -64,6 +64,14 @@ public class MainMenuUIScript : MonoBehaviour
     public void ChangeScene(string sceneName)
     {
         if (SceneManager.GetSceneByName(sceneName) != null)
-            SceneManager.LoadScene(sceneName);
+            StartCoroutine(ChangeSceneCo(sceneName));
     }
+
+    IEnumerator ChangeSceneCo(string sceneName)
+    {
+        FadeScript.fadeScript.FadeOut();
+        yield return new WaitForSeconds(1);
+        SceneManager.LoadScene(sceneName);
+    }
+
 }

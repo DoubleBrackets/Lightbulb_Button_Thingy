@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -32814,6 +32814,8 @@ MonoBehaviour:
   lightbulbMat: {fileID: 1478107057956611368}
   onColor: {r: 1, g: 0.8156493, b: 0.28773582, a: 0}
   bulbLight: {fileID: 489829076}
+  minForce: 2
+  winForce: 50
   isFlashing: 0
 --- !u!1 &6916301860202240592
 GameObject:
