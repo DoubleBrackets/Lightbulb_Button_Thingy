@@ -5,9 +5,6 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/FinalScenes/MainMenuScene.unity
     guid: 3bf5beedb3bc8b240a1422682928c72c
@@ -19,8 +16,11 @@ EditorBuildSettings:
     guid: ed7a95d3562282242b2e36bf7e2aea4d
   - enabled: 1
     path: Assets/Scenes/FinalScenes/Level2.unity
-    guid: 722e98993d91fe842bf9e5507055187c
+    guid: fbe6bd1391335c94087ee6b3ca8dea07
   - enabled: 1
     path: Assets/Scenes/FinalScenes/Level3.unity
     guid: 26bc034e21e5d734c9440b7264d85ce4
+  - enabled: 1
+    path: Assets/Scenes/FinalScenes/Level4.unity
+    guid: 7606e1fb955e2c048865c4768ba98f7e
   m_configObjects: {}

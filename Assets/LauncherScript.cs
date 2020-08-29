@@ -7,15 +7,11 @@ public class LauncherScript : MonoBehaviour
 
     public float launchVel = 20f;
 
-    private BoxCollider coll;
+    public Vector3 size;
 
-    private void Awake()
-    {
-        coll = gameObject.GetComponent<BoxCollider>();
-    }
     public void LaunchObject()
     {
-        Collider[] hitColliders = Physics.OverlapBox(gameObject.transform.position + Vector3.up*2f, coll.bounds.extents, Quaternion.identity, LayerMask.GetMask("MoveableObject", "RopeEnd", "Rope"));
+        Collider[] hitColliders = Physics.OverlapBox(gameObject.transform.position + Vector3.up*2f, size/2f, Quaternion.identity, LayerMask.GetMask("MoveableObject", "RopeEnd", "Rope"));
 
         foreach(Collider coll in hitColliders)
         {
