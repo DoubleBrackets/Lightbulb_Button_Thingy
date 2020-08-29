@@ -31,26 +31,24 @@ public class BasicEnemy : MonoBehaviour
     void Update()
     {
         transform.LookAt(new Vector3(target.position.x,transform.position.y,target.position.z));
-        if (cooldown >= 0)
+        if (cooldown > 0)
         {
             cooldown -= Time.deltaTime;
+            if (cooldown <= 0)
+            {
+                a.Stunned(false);
+                immunityTimer = immunityTime;
+            }
         }
-        else if(cooldown <= 0)
-        {
-            cooldown = 0;
-            a.Stunned(false);
-            immunityTimer = immunityTime;
-        }
-        if (immunityTimer >= 0)
+        if (immunityTimer > 0)
         {
             immunityTimer -= Time.deltaTime;
+            if(immunityTimer <= 0)
+            {
+                a.isInvuln = false;
+            }
         }
-        else if (immunityTimer <= 0)
-        {
-            immunityTimer = 0;
-            a.isInvuln = false;
-        }
-        if(damageDebounce >= 0f)
+        if(damageDebounce > 0f)
         {
             damageDebounce -= Time.deltaTime;
         }
@@ -95,11 +93,11 @@ public class BasicEnemy : MonoBehaviour
     private void KickTarget()
     {
         Rigidbody rb = target.gameObject.GetComponent<Rigidbody>();
-        float fmod = 20;
+        float fmod = 40;
         if (rb != null )
         {
             a.isInvuln = true;
-            rb.velocity = (-transform.forward * fmod);
+            rb.velocity = (transform.forward * fmod);
             a.Stunned(true);
             cooldown = cooldowntime;
         }
@@ -112,7 +110,7 @@ public class BasicEnemy : MonoBehaviour
             if (collision.gameObject.layer != 8)
             {
                 float mag = (collision.relativeVelocity * collision.rigidbody.mass).magnitude;
-                print(mag);
+
                 if (mag > forceLimit)
                 {
                     forcecounter += mag;

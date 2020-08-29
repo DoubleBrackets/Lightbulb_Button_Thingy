@@ -132,7 +132,7 @@ public class SimpleMove : MonoBehaviour
                 }
             }
             //Release object on mouserelease or stunned
-            if ((Input.GetMouseButtonUp(0) || CharacterMovementScript.characterMovementScript.isStunned )&& grabbed)
+            if ((Input.GetMouseButtonUp(0) || CharacterMovementScript.characterMovementScript.isStunned)&& grabbed)
             {
                 ReleaseObject();
             }
