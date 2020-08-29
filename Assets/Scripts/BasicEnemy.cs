@@ -79,6 +79,7 @@ public class BasicEnemy : MonoBehaviour
                     if (child.gameObject.GetComponent<Rigidbody>())
                     {
                         child.gameObject.GetComponent<Rigidbody>().isKinematic = false;
+                        child.gameObject.GetComponent<Rigidbody>().gameObject.transform.SetParent(null);
                         child.gameObject.GetComponent<ObjectBehavior>().enabled = true;
                     }
                 }
@@ -86,7 +87,7 @@ public class BasicEnemy : MonoBehaviour
             gameObject.GetComponent<NavMeshAgent>().enabled = false;
             Destroy(gameObject.GetComponent<NavMeshAgent>());
             Destroy(gameObject.GetComponent<Animator>());
-            Destroy(this);
+            Destroy(this.gameObject);
         }
     }
 
