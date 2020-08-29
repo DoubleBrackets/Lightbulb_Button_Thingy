@@ -63,7 +63,10 @@ public class SimpleMove : MonoBehaviour
                 prevLayer = Obj.layer;
                 Obj.layer = 15;
                 foreach (Transform obj in Obj.transform)
-                    obj.gameObject.layer = 15;
+                {
+                    if(obj.gameObject.layer != 14)
+                        obj.gameObject.layer = 15;
+                }
 
                 mod = Obj.GetComponent<ObjectBehavior>().Modifier;
                 holder.localPosition = new Vector3(holder.localPosition.x,mod , holder.localPosition.z+mod);
@@ -108,11 +111,11 @@ public class SimpleMove : MonoBehaviour
     {
         if (Obj != null)
         {
-            if(Input.GetKeyDown(KeyCode.E) && Obj.layer == 14)//Attaching rope to a moveableObject
+            if(Input.GetKeyDown(KeyCode.E) && prevLayer == 14)//Attaching rope to a moveableObject
             {
                 RaycastHit hit;
                 //raycast for targets
-                Physics.BoxCast(transform.position-transform.up, new Vector3(0.4f, 2, 0.4f), transform.forward, out hit, Quaternion.identity, 3, LayerMask.GetMask("MoveableObject"));
+                Physics.BoxCast(transform.position, new Vector3(0.1f, 2, 0.1f), transform.forward, out hit, Quaternion.identity, 3, LayerMask.GetMask("MoveableObject"));
                 if(hit.collider != null)
                 {
                     Rigidbody hitRb = hit.collider.GetComponent<Rigidbody>();
@@ -151,7 +154,10 @@ public class SimpleMove : MonoBehaviour
         Obj.layer = prevLayer;
         Obj.GetComponent<Rigidbody>().velocity = new Vector3(0, -0.1f);//Prevents feeze bug when joint is removed
         foreach (Transform obj in Obj.transform)
-            obj.gameObject.layer = prevLayer;
+        {
+            if (obj.gameObject.layer != 14)
+                obj.gameObject.layer = prevLayer;
+        }
         grabbed = false;
         Obj = null;
 
