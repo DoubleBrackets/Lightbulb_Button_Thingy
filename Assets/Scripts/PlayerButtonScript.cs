@@ -67,6 +67,7 @@ public class PlayerButtonScript : MonoBehaviour
         PlayerParticleManager.playerParticleManager.SetParticleBurstCount("LandParticles", (int)(3+force * 0.8f));
         PlayerParticleManager.playerParticleManager.SetParticleDrag("LandParticles", 2 * (1 - force/(winForce - minForce)));
         PlayerParticleManager.playerParticleManager.PlayParticle("LandParticles");
+        AudioManager.audioManager.PlayAudio("ButtonPress");
         StartCoroutine(StartLight(force));
     }
     IEnumerator StartLight(float force)

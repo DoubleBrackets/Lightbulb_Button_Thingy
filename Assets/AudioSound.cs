@@ -7,6 +7,8 @@ public class AudioSound : MonoBehaviour
     AudioSource source;
 
     public string id;
+
+    public float startTime;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +22,7 @@ public class AudioSound : MonoBehaviour
     {
         if(_id.CompareTo(id) == 0)
         {
+            source.time = startTime;
             source.Play();
         }
     }

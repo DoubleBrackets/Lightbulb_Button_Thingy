@@ -41,6 +41,9 @@ public class CharacterMovementScript : MonoBehaviour
     public bool isStunned = false;
     public bool isInvuln = false;
 
+    private float footstepTimer = 0f;
+    private bool step = true;
+
     LayerMask groundedMask;
     // Start is called before the first frame update
     void Awake()
@@ -65,6 +68,8 @@ public class CharacterMovementScript : MonoBehaviour
             movementDisabledSitting -= Time.deltaTime;
         if (jumpTimer > 0)
             jumpTimer -= Time.deltaTime;
+        if (footstepTimer > 0)
+            footstepTimer -= Time.deltaTime;
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
         if(Input.GetKeyDown(KeyCode.Space) && jumpTimer <= 0 && movementDisabledSitting <= 0 && !isStunned)
@@ -183,6 +188,20 @@ public class CharacterMovementScript : MonoBehaviour
             feetColl.material.staticFriction = 0f;
 
             PlayerParticleManager.playerParticleManager.PlayParticle("WalkParticles");
+
+            if(footstepTimer <= 0)
+            {
+                footstepTimer = 0.27f;
+                step = !step;
+                if (step)
+                {
+                    AudioManager.audioManager.PlayAudio("Step1");
+                }
+                else
+                {
+                    AudioManager.audioManager.PlayAudio("Step2");
+                }
+            }
         }
         else
         {
@@ -203,6 +222,7 @@ public class CharacterMovementScript : MonoBehaviour
         isStunned = val;
         if(val)
         {
+            AudioManager.audioManager.PlayAudio("Stun");
             PlayerParticleManager.playerParticleManager.PlayParticle("StunnedParticles");
             slowdownFactor = 0.97f;
         }
