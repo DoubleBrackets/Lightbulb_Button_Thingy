@@ -30,6 +30,7 @@ public class BasicEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        transform.LookAt(new Vector3(target.position.x,transform.position.y,target.position.z));
         if (cooldown >= 0)
         {
             cooldown -= Time.deltaTime;
