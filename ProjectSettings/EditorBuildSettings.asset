@@ -9,9 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/FinalScenes/MainMenuScene.unity
     guid: 3bf5beedb3bc8b240a1422682928c72c
   - enabled: 1
-    path: Assets/Scenes/LightbulbSwingScene.unity
-    guid: 8013b5c92ddf5f84a95fd0605291b040
-  - enabled: 1
     path: Assets/Scenes/FinalScenes/Level1.unity
     guid: ed7a95d3562282242b2e36bf7e2aea4d
   - enabled: 1
