@@ -6,6 +6,7 @@ WEBGL Player Link: https://doublebrackets.github.io/Lightbulb_Button_Thingy/Buil
 
 Developers:
 JD, Star, HappySappy, DoubleBrackets
+
 Programmers:
 Arthur Gan 
 Sethya Pugal
