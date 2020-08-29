@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEditorInternal;
 
 public class UIScript : MonoBehaviour
 {
@@ -58,6 +59,8 @@ public class UIScript : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
         ChangeBarToRatio(targetRatio);
+        if (targetRatio == 1)
+            yield break;
         yield return new WaitForSeconds(1f);
         for (int x = 0; x < 15; x++)
         {
