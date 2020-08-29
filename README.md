@@ -5,7 +5,7 @@ Play our game at ~
 WEBGL Player Link: https://doublebrackets.github.io/Lightbulb_Button_Thingy/Builds/index.html
 
 Developers:
-JD, Star, HappySappy
+JD, Star, HappySappy, DoubleBrackets
 Programmers:
 Arthur Gan 
 Sethya Pugal
