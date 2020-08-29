@@ -100,6 +100,7 @@ public class BasicEnemy : MonoBehaviour
             rb.velocity = (transform.forward * fmod);
             a.Stunned(true);
             cooldown = cooldowntime;
+            AudioManager.audioManager.PlayAudio("Kick" + gameObject.GetInstanceID());
         }
     }
 

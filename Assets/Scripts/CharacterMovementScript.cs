@@ -142,7 +142,11 @@ public class CharacterMovementScript : MonoBehaviour
             Physics.BoxCast(center + transform.position, size / 2f, Vector3.down, out hit, Quaternion.identity, 0.2f, groundedMask);
         }
         if (hit.collider != null)
+        {
+            if (!isGrounded  && !isChangingPosition && !isSitting)
+                AudioManager.audioManager.PlayAudio("HitGround");
             return true;
+        }
         return false;
     }
     private void FixedUpdate()
@@ -189,7 +193,7 @@ public class CharacterMovementScript : MonoBehaviour
 
             PlayerParticleManager.playerParticleManager.PlayParticle("WalkParticles");
 
-            if(footstepTimer <= 0)
+            if(footstepTimer <= 0 && isGrounded)
             {
                 footstepTimer = 0.27f;
                 step = !step;

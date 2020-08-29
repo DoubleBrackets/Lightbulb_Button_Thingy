@@ -9,12 +9,20 @@ public class AudioSound : MonoBehaviour
     public string id;
 
     public float startTime;
+
+    public bool useId = false;
+
+    public GameObject idSource;
     // Start is called before the first frame update
     void Start()
     {
         source = gameObject.GetComponent<AudioSource>();
         AudioManager.audioManager.PlayAudioEvent += Play;
         AudioManager.audioManager.StopAudioEvent += Stop;
+        if(useId && idSource != null)
+        {
+            id += ("" + idSource.GetInstanceID());
+        }
     }
 
 
