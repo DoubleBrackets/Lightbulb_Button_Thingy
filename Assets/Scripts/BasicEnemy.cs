@@ -116,6 +116,7 @@ public class BasicEnemy : MonoBehaviour
                 {
                     forcecounter += mag;
                     damageDebounce = 0.5f;
+                    AudioManager.audioManager.PlayAudio("Impact" + gameObject.GetInstanceID());
                 }
             }
         }

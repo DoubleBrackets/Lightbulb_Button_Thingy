@@ -47,6 +47,7 @@ MonoBehaviour:
   id: ButtonPress
   startTime: 0.7
   useId: 0
+  idSource: {fileID: 0}
 --- !u!82 &160326161
 AudioSource:
   m_ObjectHideFlags: 0
@@ -34173,6 +34174,7 @@ MonoBehaviour:
   id: Step1
   startTime: 0.5
   useId: 0
+  idSource: {fileID: 0}
 --- !u!82 &1562007289
 AudioSource:
   m_ObjectHideFlags: 0
@@ -34316,6 +34318,7 @@ MonoBehaviour:
   id: Step2
   startTime: 0.5
   useId: 0
+  idSource: {fileID: 0}
 --- !u!82 &1619599378
 AudioSource:
   m_ObjectHideFlags: 0
@@ -34459,6 +34462,7 @@ MonoBehaviour:
   id: Stun
   startTime: 0.55
   useId: 0
+  idSource: {fileID: 0}
 --- !u!82 &1654752272
 AudioSource:
   m_ObjectHideFlags: 0
@@ -34471,8 +34475,8 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: dd0d466bbf4eaa04fb56c4983b7bd54a, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1.1
+  m_Volume: 0.55
+  m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
@@ -34602,6 +34606,7 @@ MonoBehaviour:
   id: HitGround
   startTime: 0.3
   useId: 0
+  idSource: {fileID: 0}
 --- !u!82 &1734366426
 AudioSource:
   m_ObjectHideFlags: 0
@@ -41535,6 +41540,7 @@ MonoBehaviour:
   id: Struggle
   startTime: 0
   useId: 0
+  idSource: {fileID: 0}
 --- !u!82 &5189363217300849882
 AudioSource:
   m_ObjectHideFlags: 0
@@ -41545,11 +41551,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: db8674174f2f15b4eb9bbe0f1925cc1d, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 413a77bca1f2d5b44a6497d111951be1, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1.1
-  Loop: 0
+  m_Volume: 0.15
+  m_Pitch: 1.2
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
