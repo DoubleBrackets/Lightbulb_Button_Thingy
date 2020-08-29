@@ -84,6 +84,7 @@ public class SimpleMove : MonoBehaviour
                 CharacterMovementScript.characterMovementScript.rotationFactor *= 4;
                 CharacterMovementScript.characterMovementScript.speed /= 1.5f;
                 PlayerParticleManager.playerParticleManager.PlayParticle("GrabParticles");
+                AudioManager.audioManager.PlayAudio("Struggle");
             }
         }
         if (grabbed)
@@ -151,6 +152,7 @@ public class SimpleMove : MonoBehaviour
         CharacterMovementScript.characterMovementScript.rotationFactor /= 4;
         CharacterMovementScript.characterMovementScript.speed *= 1.5f;
         PlayerParticleManager.playerParticleManager.StopParticle("GrabParticles");
+        AudioManager.audioManager.StopAudio("Struggle");
         Obj.layer = prevLayer;
         Obj.GetComponent<Rigidbody>().velocity = new Vector3(0, -0.1f);//Prevents feeze bug when joint is removed
         foreach (Transform obj in Obj.transform)
