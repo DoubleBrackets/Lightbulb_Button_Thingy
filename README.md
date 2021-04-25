@@ -1,6 +1,8 @@
 # SittyLights
 Our project for Virtual Codeday August 2020! A game about lightbulbs and buttons . . . idk
 
+Made using Unity Game Engine.
+
 Play our game at ~ 
 WEBGL Player Link: https://doublebrackets.github.io/Lightbulb_Button_Thingy/Builds/index.html
 
